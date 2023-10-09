@@ -6,29 +6,31 @@
     <title>Comparación de Imágenes</title>
     <style>
      /* CSS para la comparación de imágenes antes y después */
-#comparison {
-    height: 450px;
-    max-width: 800px;
-    margin: auto;
-}
+ /* CSS para la comparación de imágenes antes y después */
+        #comparison {
+            height: 450px;
+            max-width: 800px;
+            margin: auto;
+        }
 
-figure {
-    position: relative;
-    width: 100%;
-    max-width: 800px;
-    height: 100%;
-    max-height: 450px;
-    background-image: url(onface2.jpeg);
-}
+        figure {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            height: 100%;
+            max-height: 450px;
+            background-image: url(onface2.jpeg); /* Cambia esta URL por tu imagen después */
+        }
 
-#divisor {
-    background-size: cover;
-    position: absolute;
-    width: 50%;
-    box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.3);
-    bottom: 0;
-    height: 100%;
-}
+        #divisor {
+            background-size: cover;
+            position: absolute;
+            width: 50%;
+            box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.3);
+            bottom: 0;
+            height: 100%;
+            background-image: url(onface.jpeg); /* Cambia esta URL por tu imagen antes */
+        }
 
 #divisor::before,
 #divisor::after {
@@ -153,13 +155,9 @@ input[type=range]::-ms-thumb {
     </style>
 </head>
 <body>
-    <div id="comparison" style="height: 450px; max-width: 800px; margin: auto;">
-        <figure style="width: 100%; max-width: 800px; height: 100%; max-height: 450px; background-image: url(https://url-de-tu-imagen-después.jpg);">
-            <div id="handle">
-            </div>
-
-            <div id="divisor" style="background-image: url(onface.jpeg);">
-            </div>
+   <div id="comparison">
+        <figure>
+            <div id="handle"></div>
         </figure>
         <input type="range" min="0" max="100" value="50" id="slider" oninput="moveDivisor()" />
     </div>
