@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparación de Imágenes</title>
+    <style>
+     /* CSS para la comparación de imágenes antes y después */
+#comparison {
+    height: 450px;
+    max-width: 800px;
+    margin: auto;
+}
+
+figure {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    height: 100%;
+    max-height: 450px;
+    background-image: url(https://url-de-tu-imagen-después.jpg);
+}
+
+#divisor {
+    background-size: cover;
+    position: absolute;
+    width: 50%;
+    box-shadow: 0 5px 10px -2px rgba(0, 0, 0, 0.3);
+    bottom: 0;
+    height: 100%;
+}
+
+#divisor::before,
+#divisor::after {
+    content: '';
+    position: absolute;
+    right: -2px;
+    width: 4px;
+    height: calc(50% - 23px);
+    background: #fff;
+    z-index: 3;
+}
+
+#divisor::before {
+    top: 0;
+}
+
+#divisor::after {
+    bottom: 0;
+}
+
+#handle {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    z-index: 1;
+    border-radius: 100%;
+    background-color: #6C7A89;
+}
+
+#handle::before,
+#handle::after {
+    content: '';
+    width: 0;
+    height: 0;
+    border: 6px inset transparent;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#handle::before {
+    border-right: 6px solid #fff;
+    left: 50%;
+    margin-left: -16px;
+}
+
+#handle::after {
+    border-left: 6px solid #fff;
+    right: 50%;
+    margin-right: -16px;
+}
+
+input[type=range] {
+    position: absolute;
+    top: 50%;
+    left: -25px;
+    transform: translateY(-50%);
+    background-color: transparent;
+    width: calc(100% + 50px);
+    z-index: 2;
+    margin: 0;
+    padding: 0;
+    height: 50px;
+    text-indent: 0.01px;
+    text-overflow: '';
+}
+
+input[type=range]:focus,
+input[type=range]:active {
+    border: none;
+    outline: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    appearance: none;
+    border: none;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background: transparent;
+    border: 4px solid #fff;
+    box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.3);
+}
+
+input[type=range]::-moz-range-track {
+    appearance: none;
+    height: 15px;
+    width: 100%;
+    background-color: transparent;
+    position: relative;
+    outline: none;
+    text-indent: 0.01px;
+    text-overflow: '';
+}
+
+input[type=range]::-moz-range-thumb,
+input[type=range]:focus::-moz-range-thumb {
+    box-shadow: none;
+    border: none;
+    height: 0;
+    width: 0;
+    border-radius: 0;
+    background: transparent;
+    cursor: pointer;
+    text-indent: 0.01px;
+    text-overflow: '';
+}
+
+input[type=range]::-ms-thumb {
+    box-shadow: none;
+    border: none;
+    height: 0;
+    width: 0;
+    border-radius: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+    </style>
+</head>
+<body>
+    <div id="comparison" style="height: 450px; max-width: 800px; margin: auto;">
+        <figure style="width: 100%; max-width: 800px; height: 100%; max-height: 450px; background-image: url(https://url-de-tu-imagen-después.jpg);">
+            <div id="handle">
+            </div>
+
+            <div id="divisor" style="background-image: url(https://url-de-tu-imagen-antes.jpg);">
+            </div>
+        </figure>
+        <input type="range" min="0" max="100" value="50" id="slider" oninput="moveDivisor()" />
+    </div>
+
+    <script>
+        // JavaScript para la comparación de imágenes antes y después
+        // ... Copia y pega aquí el JavaScript proporcionado anteriormente ...
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
+</body>
+</html>
