@@ -618,19 +618,19 @@ footer {
     <script type="module">
 
 
-         // Inicializar el mapa en la ubicación especificada
-        var map = L.map('map').setView([28.5425, -81.379], 15); // Cambia las coordenadas y el nivel de zoom según tu ubicación
+      // Inicializar el mapa en la ubicación especificada
+var map = L.map('map').setView([37.286047, -5.929656], 15); // Cambia las coordenadas y el nivel de zoom según tu ubicación
 
-        // Añadir una capa de mapa base de OpenStreetMap
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-        }).addTo(map);
+// Añadir una capa de mapa base de OpenStreetMap
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+}).addTo(map);
 
-        // Añadir un marcador en la ubicación deseada
-        var marker = L.marker([28.5425, -81.379]).addTo(map);
+// Añadir un marcador en la ubicación deseada
+var marker = L.marker([37.286047, -5.929656]).addTo(map);
 
-        // Añadir un popup al marcador
-        marker.bindPopup("<b>111 N Orange Ave, Orlando, FL 32801</b>").openPopup();
+// Añadir un popup al marcador
+marker.bindPopup("<b>C. Sta. María Magdalena, 5, bajo D, 41701 Dos Hermanas, Sevilla</b>").openPopup();
 
         
       jQuery(document).ready(function ($) {
