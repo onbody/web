@@ -711,12 +711,12 @@ marker.bindPopup("<b>C. Sta. María Magdalena, 5, bajo D, 41701 Dos Hermanas, Se
         });
 
         (function() {
-            emailjs.init("-Ym-r4wRWklw_FuxE"); // Reemplaza "user_Ym-r4wRWklw_FuxE" con tu API Key
+            emailjs.init("fhR_iAXbX8Z_g2TG6"); // Reemplaza "user_Ym-r4wRWklw_FuxE" con tu API Key
 
             document.getElementById('myForm').addEventListener('submit', function(event) {
                 event.preventDefault();
 
-                emailjs.sendForm('service_yjv3csk', 'template_6p4nxd5', this)
+                emailjs.sendForm('service_a92vygw', 'template_ys48crt', this)
                     .then(function(response) {
                         console.log('Correo electrónico enviado', response);
                         document.getElementById('mensaje').innerHTML = 'Mensaje enviado con éxito. Gracias.';
