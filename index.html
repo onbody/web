@@ -4,13 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Raleway:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Raleway:wght@500&display=swap" rel="stylesheet">
+      <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    />
+    <script
+        src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    ></script>
     <style>
         /* Estilos generales */
         body {
@@ -87,7 +92,7 @@
             text-align: center;
             margin: 20px auto;
             padding: 20px;
-
+            
             position: relative;
             z-index: 2;
         }
@@ -120,7 +125,7 @@
             }
         }
 
-        .seccion-ventajas {
+         .seccion-ventajas {
             display: flex;
             flex-wrap: wrap;
             padding: 20px;
@@ -147,156 +152,718 @@
             color: white; /* Cambiamos el color del texto en las secciones negras para mayor legibilidad */
         }
 
-        /* ... Tus estilos previos ... */
+/* ... Tus estilos previos ... */
 
-        .servicios {
-            display: flex;
-            justify-content: left;
-            flex-wrap: wrap;
+.servicios {
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+    color: white;
+}
+
+.servicio {
+    cursor: pointer;
+    background: orange;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+
+.caja-servicio {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    background: orange;
+    border-radius: 10px;
+}
+
+.caja-servicio a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px; /* Ancho del círculo */
+    height: 50px; /* Altura del círculo */
+    border-radius: 50%;
+    border: 1px solid white;
+    text-decoration: none;
+    color: white;
+    margin: 5px;
+    background: orange; /* Fondo azul */
+}
+
+.caja-servicio i {
+    color: white;
+    font-size: 24px; /* Tamaño del ícono */
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+
+
+/* Estilos para el menú de hamburguesa y el menú principal */
+.menu-mobile {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .menu-mobile {
+        display: block;
+        text-align: center;
+        padding: 10px;
+    }
+    header {
+        display: none;
+    }
+
+    /* Estilos para el menú de hamburguesa */
+    .hamburger {
+        display: block;
+        cursor: pointer;
+    }
+
+    .bar {
+        width: 25px;
+        height: 3px;
+        background-color: #fff;
+        margin: 6px auto;
+        transition: 0.4s;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+}
+
+/* Cambiar el fondo al hacer hover en los enlaces del menú */
+nav a:hover {
+    background-color: orange;
+}
+
+.boton-flotante {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #007BFF;
+            border: none;
             color: white;
-        }
-
-        .servicio {
+            padding: 10px 20px;
+            border-radius: 5px;
             cursor: pointer;
-            background: orange;
-            border-radius: 10px;
-            margin: 10px;
+            z-index: 2;
         }
 
-        .caja-servicio {
-            display: flex;
-            align-items: center;
-            padding: 5px;
-            background: orange;
-            border-radius: 10px;
+        .boton-flotante select {
+            background-color: transparent;
+            color: white;
+            border: none;
+            font-size: 16px;
         }
 
-        .caja-servicio a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 50px; /* Ancho del círculo */
-            height: 50px; /* Alto del círculo */
-            background: #fff;
-            color: black;
-            border-radius: 50%;
-            margin-right: 10px;
-            text-decoration: none;
-            font-size: 24px;
+.explicacion-servicio {
+        display: block;
+    padding: 10px;
+    margin: 10px;
+
+}
+
+
+.caja-all {
+
+    display: block;
+    width: 100%;
+}
+
+    .antesydespues {
+    position: relative;
+
+    height: 450px; /* Alto de la imagen */
+    margin: auto;
+    overflow: hidden;
+}
+
+.antesydespues .antes,
+.antesydespues .despues {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.3s; /* Agrega una transición para la opacidad */
+}
+
+.antesydespues img {
+    height: 100%;
+    object-fit: cover;
+        border-radius: 10px;
+}
+
+.switch {
+    cursor: pointer;
+}
+
+ .results-section {
+    text-align: center;
+    margin: 20px 0;
+         background: black;
+    padding: 10px;
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+            .seccion-ventajas {
+                flex-direction: column;
+            }
+
+            .imagen, .descripcion {
+                flex: none;
+                width: 100%;
+            }
         }
-
-        /* ... Tus estilos previos ... */
-
-        /* Estilos para la sección de resultados */
-        .results-section {
-            background-color: #fff;
-            color: #000;
-            padding: 40px 0;
-        }
-
-        .section-title {
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-
-        .before_after_slider {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-
-        .img_after {
-            position: absolute;
-            width: 100%;
-        }
-
-        .img_before {
-            position: absolute;
-            overflow: hidden;
-            border-right: solid 4px #FFF;
-            width: 50%; /* Cambia el ancho a la mitad para mostrar el antes y el después */
-        }
-
-        /* Estilos para el pie de página */
-        footer {
-            background-color: #222;
+  .formulario {
             color: #fff;
-            padding: 20px 0;
-            text-align: center;
+            font-size: 18px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            width: 80%;
+            max-width: 400px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      margin: 20px auto;
         }
 
-        .footer-text {
-            font-size: 18px;
+        .formulario label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .formulario input, .formulario textarea, .formulario select {
+               width: 90%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .formulario button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .formulario button:hover {
+            background-color: #0056b3;
+        }
+
+           .wework {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            background: black;
+        }
+
+        .wework h1 {
+            font-size: 36px;
+        }
+
+        .videos {
+            display: flex;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .video{
+
+            margin: 10px;
+    }
+
+
+        .like-icon {
+    color: black; /* Cambia el color a tu preferencia */
+    cursor: pointer;
+    top: 10px;
+    left: 10px;
+    font-size: 24px;
+
+}
+
+       .like-icon.clicked {
+            color: blue;
+        }
+
+        /* Estilos para el footer */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+/* Estilos para los enlaces del footer */
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Estilos para los enlaces al pasar el ratón */
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+          #map {
+            width: 100%;
+            height: 400px;
         }
     </style>
-    <title>Tu Sitio Web</title>
 </head>
 <body>
-    <!-- Capa opaca para encabezado y sección principal -->
-    <div class="capa"></div>
 
-    <!-- Encabezado -->
+<div class="menu-mobile">
+    <div class="logo">
+            <img src="JM3.png" alt="Logo">
+        </div>
+    <div class="hamburger" id="hamburger">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+        <nav class="menu-servicios" style="display: none">
+            <a href="#">Reviews</a>
+            <a href="#">Services</a>
+            <a href="#">Contact</a>
+        </nav>
+</div>
+
     <header>
         <div class="logo">
             <img src="JM3.png" alt="Logo">
         </div>
         <nav>
-            <a href="#">INICIO</a>
-            <a href="#">NUESTRA EMPRESA</a>
-            <a href="#">PAQUETES</a>
-            <a href="#">CONTACTO</a>
-            <div class="phone">
+            <a href="#">START</a>
+            <a href="#">OUR COMPANY</a>
+            <a href="#">PACKAGES</a>
+            <a href="#">CONTACT</a>
+            <div>
                 <i class="fa fa-phone phone-icon"></i>
                 <span class="phone-number">+1 (321) 310-8155</span>
             </div>
         </nav>
     </header>
-
-    <!-- Sección Principal -->
     <section class="main-section">
-        <h1 class="section-title">Tratamiento Estético No Invasivo Revolucionario</h1>
-        <button class="contact-button">Contáctanos</button>
+        <h1 class="section-title">Professional and Quality Cleaning</h1>
+        <button class="contact-button">Contact us</button>
     </section>
+<section class="servicios">
+    <div class="caja-all">
+        <div class="servicio" data-service="bathrooms">
+            <div class="caja-servicio">
+                <a>
+                    <i class="fa fa-check"></i>
+                </a>
+                <h2 class="nombre-servicio">Bathrooms</h2>
+            </div>
+            <div class="explicacion-servicio" data-service="bathrooms" style="display: none">
+               <div class="antesydespues">
+                    <div class="antes">
+                        <img src="1.png" alt="">
+                    </div>
+                    <div class="despues">
+                        <img src="3.png" alt="">
+                    </div>
+                </div>
+                            <h3 class="switch1">BEFORE</h3>
+                            <h3 class="switch2" style="display:none">AFTER</h3>
 
-    <!-- Sección Ventajas -->
-    <div class="seccion-ventajas">
-        <!-- Ventaja 1 -->
+                <h2>Bathroom Services</h2>
+                <p>Let JM3 revamp your bathroom into a luxurious retreat. Our bathroom services include tiling, fixtures, and complete bathroom remodels. We pay attention to every detail, ensuring your bathroom not only looks stunning but also functions seamlessly.</p>
+            </div>
+        </div>
+    </div>
+    <div class="caja-all">
+        <div class="servicio" data-service="flooring">
+            <div class="caja-servicio">
+                <a>
+                    <i class="fa fa-check"></i>
+                </a>
+                <h2 class="nombre-servicio">Flooring</h2>
+            </div>
+            <div class="explicacion-servicio" data-service="flooring" style="display: none">
+              <div class="antesydespues">
+                    <div class="antes">
+                        <img src="4.png" alt="">
+                    </div>
+                    <div class="despues">
+                        <img src="5.png" alt="">
+                    </div>
+                </div>
+                  <h3 class="switch1">BEFORE</h3>
+                            <h3 class="switch2" style="display:none">AFTER</h3>
+                <h2>Flooring Services (Servicios de Pisos)</h2>
+                <p>At JM3, we specialize in transforming your floors. From hardwood and laminate to tile and carpet, our expert team can install, repair, or refinish any type of flooring. We take pride in delivering high-quality, durable solutions that enhance the beauty and functionality of your space.</p>
+            </div>
+        </div>
+    </div>
+    <div class="caja-all">
+        <div class="servicio" data-service="kitchen">
+            <div class="caja-servicio">
+                <a>
+                    <i class="fa fa-check"></i>
+                </a>
+                <h2 class="nombre-servicio">Kitchen</h2>
+            </div>
+            <div class="explicacion-servicio" data-service="kitchen" style="display: none">
+             <div class="antesydespues">
+                    <div class="antes">
+                        <img src="2.png" alt="">
+                    </div>
+                    <div class="despues">
+                        <img src="1.png" alt="">
+                    </div>
+                </div>
+                  <h3 class="switch1">BEFORE</h3>
+                            <h3 class="switch2" style="display:none">AFTER</h3>
+
+                <h2>Kitchen Services (Servicios de Pisos)</h2>
+                <p>JM3 is your partner in creating the kitchen of your dreams. Our kitchen services range from complete kitchen renovations to cabinet installation and countertop upgrades. We combine functional design with top-notch craftsmanship to make your kitchen the heart of your home.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="caja-all">
+        <div class="servicio" data-service="windows-doors">
+            <div class="caja-servicio">
+                <a>
+                    <i class="fa fa-check"></i>
+                </a>
+                <h2 class="nombre-servicio">Windows and Doors</h2>
+            </div>
+            <div class="explicacion-servicio" data-service="windows-doors" style="display: none">
+                <div class="antesydespues">
+                    <div class="antes">
+                        <img src="2.png" alt="">
+                    </div>
+                    <div class="despues">
+                        <img src="1.png" alt="">
+                    </div>
+                </div>
+                 <h3 class="switch1">BEFORE</h3>
+                            <h3 class="switch2" style="display:none">AFTER</h3>
+                <h2>Windows and Doors</h2>
+                <p>JM3 offers comprehensive window and door solutions. From installation to repairs, our skilled professionals ensure your home is secure and energy-efficient. We provide a wide selection of windows and doors to match your style and preferences.</p>
+            </div>
+        </div>
+    </div>
+    <div class="caja-all">
+        <div class="servicio" data-service="cleaning">
+            <div class="caja-servicio">
+                <a>
+                    <i class="fa fa-check"></i>
+                </a>
+                <h2 class="nombre-servicio">Cleaning</h2>
+            </div>
+            <div class="explicacion-servicio" data-service="cleaning" style="display: none">
+              <div class="antesydespues">
+                    <div class="antes">
+                        <img src="2.png" alt="">
+                    </div>
+                    <div class="despues">
+                        <img src="1.png" alt="">
+                    </div>
+                </div>
+                  <h3 class="switch1">BEFORE</h3>
+                            <h3 class="switch2" style="display:none">AFTER</h3>
+                <h2>Cleaning Services</h2>
+                <p>JM3's cleaning services are designed to keep your space pristine and inviting. Whether it's routine house cleaning, deep cleaning, or post-construction cleanup, we have the expertise and equipment to tackle the task. Enjoy a spotless environment without the hassle.</p>
+            </div>
+        </div>
+    </div>
+    <div class="caja-all">
+        <div class="servicio" data-service="painting">
+            <div class="caja-servicio">
+                <a>
+                    <i class="fa fa-check"></i>
+                </a>
+                <h2 class="nombre-servicio">Painting</h2>
+            </div>
+            <div class="explicacion-servicio" data-service="painting" style="display: none">
+               <div class="antesydespues">
+                    <div class="antes">
+                        <img src="2.png" alt="">
+                    </div>
+                    <div class="despues">
+                        <img src="1.png" alt="">
+                    </div>
+                </div>
+                <h3 class="switch">BEFORE</h3>
+                <h3 class="switch2" style="display:none">AFTER</h3>
+                <h2>Painting Services (Servicios de Pintura)</h2>
+                <p>JM3's painting services are the key to refreshing and enhancing your living spaces. Our team of painters excels in interior and exterior painting, utilizing premium materials and techniques to achieve a flawless finish. Let us add a splash of color and vibrancy to your home.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="results-section">
+    <h1 class="section-title" style="text-align: center; ">BEFORE AND AFTER</h1>
+    <div class="before_after_slider" style="position: relative; width: 400px; height: 225px; margin: auto;">
+    <div class="img_after" style="position: absolute; width: 100%;">
+        <img src="2.png" width="400" height="225" alt="">
+    </div>
+    <div class="img_before" style="position: absolute; overflow: hidden; border-right: solid 4px #FFF; width: 200px;">
+        <img src="1.png" width="400" height="225" alt="">
+    </div>
+</div>
+
+</section>
+  <div class="seccion-ventajas">
         <div class="imagen">
-            <img src="ventaja1.png" alt="Ventaja 1">
+            <img src="jm1.png" alt="Imagen 1" width="100%" height="auto">
         </div>
         <div class="descripcion">
-            <h2>Resultados Asombrosos en una Sesión</h2>
-            <p>On Face está diseñado para revolucionar el mundo de la estética no invasiva y no quirúrgica. Mejora el tono muscular y cutáneo en tan solo una sesión de 20 minutos por semana. Utiliza electroestimulación selectiva y RF para calentar la dermis.</p>
-        </div>
-
-        <!-- Ventaja 2 -->
-        <div class="imagen">
-            <img src="ventaja2.png" alt="Ventaja 2">
-        </div>
-        <div class="descripcion">
-            <h2>Resultados Increíbles en una Sesión</h2>
-            <p>Nuestro tratamiento ha demostrado resultados notables en una sola sesión. Con tecnología de vanguardia y personal altamente capacitado, te garantizamos una experiencia inigualable.</p>
+            <h1>Years of Industry Know-How</h1>
+            <p> Jesus Malpica has a proven track record of expertise in repairing and remodeling various types of residential properties, including chalets, apartments, and houses.</p>
         </div>
     </div>
 
-    <!-- Más secciones y contenido aquí -->
+    <div class="seccion-ventajas">
+        <div class="imagen">
+            <img src="jm2.png" alt="Imagen 2" width="100%" height="auto">
+        </div>
+        <div class="descripcion">
+            <h1>Quality Workmanship</h1>
+            <p> With years of experience in the industry, Jesus Malpica's team possesses the knowledge and skills needed to handle a wide range of repair and remodeling projects.</p>
+        </div>
+    </div>
 
-    <!-- Sección de Resultados -->
-    <section class="results-section">
-        <h1 class="section-title" style="text-align: center;">Resultados Increíbles en una Sesión</h1>
-        <div class="before_after_slider" style="position: relative; width: 400px; height: 225px; margin: auto;">
-            <div class="img_after" style="position: absolute; width: 100%;">
-                <img src="2.png" width="400" height="225" alt="">
+    <div class="seccion-ventajas">
+        <div class="imagen">
+            <img src="jm3.png" alt="Imagen 3" width="100%" height="auto">
+        </div>
+        <div class="descripcion">
+            <h1>Tailored Services for All Needs</h1>
+            <p>The company is known for its commitment to delivering high-quality workmanship, ensuring that every project is completed to the highest standards.</p>
+        </div>
+    </div>
+
+    <div class="seccion-ventajas">
+        <div class="imagen">
+            <img src="jm4.png" alt="Imagen 4" width="100%" height="auto">
+        </div>
+        <div class "descripcion">
+            <h1>Personalized Solutions</h1>
+            <p>Whether you need minor repairs, major renovations, or complete remodeling, Jesus Malpica offers a wide range of services to meet your specific needs.
+
+Personalized Solutions: They understand that every property is unique, and they work closely with clients to tailor solutions that align with their individual preferences and requirements.</p>
+        </div>
+    </div>
+
+<div class="wework">
+        <h1>We Work</h1>
+        <div class="videos">
+            <div class="video">
+                    <video controls style="width: 200px;">
+                        <source src="JM3WORK.mp4" type="video/mp4" >
+                        Tu navegador no admite el elemento de video.
+                    </video>
+                <i class="fas fa-thumbs-up like-icon"></i>
+
             </div>
-            <div class="img_before" style="position: absolute; overflow: hidden; border-right: solid 4px #FFF; width: 200px;">
-                <img src="1.png" width="400" height="225" alt="">
+            <div class="video">
+                    <video controls style="width: 200px;">
+                        <source src="JM34.mp4" type="video/mp4">
+                        Tu navegador no admite el elemento de video.
+                    </video>
+                <i class="fas fa-thumbs-up like-icon"></i>
+
             </div>
         </div>
-    </section>
+    </div>
+      <div id="map"></div>
+    
+   <div class="formulario">
+        <h2>Contact Us</h2>
+        <form id="myForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="telephone">Telephone:</label>
+            <input type="tel" id="telephone" name="telephone" required>
+            
+            <label for="service">Service:</label>
+            <select id="service" name="service" required>
+                <option value="Bathrooms">Bathrooms</option>
+                <option value="Flooring">Flooring</option>
+                <option value="Kitchen">Kitchen</option>
+                <option value="Windows and Doors">Windows and Doors</option>
+                <option value="Cleaning">Cleaning</option>
+                <option value="Painting">Painting</option>
+            </select>
+            
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+            
+            <button type="submit">Submit</button>
+        </form>
+        <div id="mensaje"></div>
+    </div>
 
-    <!-- Pie de página -->
-    <footer>
-        <p class="footer-text">© 2023 Tu Sitio Web | Todos los derechos reservados</p>
-    </footer>
+
+<div class="boton-flotante">
+    <select>
+        <option value="ingles">Inglés</option>
+        <option value="frances">Francés</option>
+        <option value="espanol">Español</option>
+    </select>
+</div>
+<footer>
+    <div class="footer-links">
+        <ul>
+            <li><a href="company-policies.html">Company Policies</a></li>
+            <li><a href="#">Legal Notice</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+        </ul>
+    </div>
+</footer>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="module">
+
+
+         // Inicializar el mapa en la ubicación especificada
+        var map = L.map('map').setView([28.5425, -81.379], 15); // Cambia las coordenadas y el nivel de zoom según tu ubicación
+
+        // Añadir una capa de mapa base de OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+        // Añadir un marcador en la ubicación deseada
+        var marker = L.marker([28.5425, -81.379]).addTo(map);
+
+        // Añadir un popup al marcador
+        marker.bindPopup("<b>111 N Orange Ave, Orlando, FL 32801</b>").openPopup();
+
+        
+      jQuery(document).ready(function ($) {
+    // Código para el cambio de "Antes" y "Después"
+    const imgAntes = $(".antes");
+    const imgDespues = $(".despues");
+    const switch1 = $(".switch1");
+    const switch2 = $(".switch2");
+
+    // Variable para controlar el estado actual (Antes o Después)
+    let estadoActual = "Antes";
+
+    // Función para alternar entre "Antes" y "Después" y animar los cambios
+    function toggleState() {
+        if (estadoActual === "Antes") {
+            estadoActual = "Después";
+
+            // Animación de opacidad
+            imgAntes.animate({ opacity: 0 }, 500);
+            imgDespues.animate({ opacity: 1 }, 500);
+
+            // Cambio del texto
+            switch1.hide();
+            switch2.show();
+        } else {
+            estadoActual = "Antes";
+
+            // Animación de opacidad
+            imgAntes.animate({ opacity: 1 }, 500);
+            imgDespues.animate({ opacity: 0 }, 500);
+
+            // Cambio del texto
+            switch1.show();
+            switch2.hide();
+        }
+    }
+
+    // Función para iniciar el bucle
+    function startLoop() {
+        setInterval(toggleState, 5000);
+    }
+
+    // Inicia el bucle al cargar la página
+    startLoop();
+});
+
+
+        
+        document.addEventListener("DOMContentLoaded", function () {
+            const hamburger = document.getElementById("hamburger");
+            const menuServicios = document.querySelector(".menu-servicios");
+
+            hamburger.addEventListener("click", function () {
+                hamburger.classList.toggle("active");
+                menuServicios.style.display = menuServicios.style.display === "flex" ? "none" : "flex";
+            });
+
+            // Obtener todos los elementos .caja-servicio
+            const cajaServicios = document.querySelectorAll('.caja-servicio');
+
+            // Agregar un controlador de clic a cada .caja-servicio
+            cajaServicios.forEach(cajaServicio => {
+                cajaServicio.addEventListener('click', () => {
+                    // Obtener el servicio correspondiente
+                    const servicioData = cajaServicio.parentElement.getAttribute('data-service');
+                    const explicacionServicio = document.querySelector(`.explicacion-servicio[data-service="${servicioData}"]`);
+
+                    // Mostrar u ocultar la explicación del servicio
+                    if (explicacionServicio.style.display === 'block' || explicacionServicio.style.display === '') {
+                        explicacionServicio.style.display = 'none';
+                    } else {
+                        explicacionServicio.style.display = 'block';
+                    }
+                });
+            });
+        });
+
+        (function() {
+            emailjs.init("-Ym-r4wRWklw_FuxE"); // Reemplaza "user_Ym-r4wRWklw_FuxE" con tu API Key
+
+            document.getElementById('myForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                emailjs.sendForm('service_yjv3csk', 'template_6p4nxd5', this)
+                    .then(function(response) {
+                        console.log('Correo electrónico enviado', response);
+                        document.getElementById('mensaje').innerHTML = 'Mensaje enviado con éxito. Gracias.';
+                    }, function(error) {
+                        console.log('Error al enviar el correo electrónico', error);
+                        document.getElementById('mensaje').innerHTML = 'Error al enviar el mensaje. Por favor, inténtalo de nuevo.';
+                    });
+            });
+        })();
+
+        
+
+    jQuery.noConflict(),jQuery(document).ready(function(){var a=jQuery(".img_before"),b=jQuery(".img_before img").width(),c=Math.round(b/2);a.width(c),jQuery(".before_after_slider").mousemove(function(b){var c=b.offsetX||b.clientX-jQueryimg_after.offset().left;a.width(c)}),jQuery(".before_after_slider").mouseleave(function(b){a.stop().animate({width:c},1e3)})});
+
+    </script>
+
 </body>
 </html>
