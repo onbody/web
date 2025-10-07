@@ -1,761 +1,700 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
-    <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-WGRW5H95');</script>
-<!-- End Google Tag Manager -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Raleway:wght@500&display=swap" rel="stylesheet">
-      <link
-        rel="stylesheet"
-        href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-    />
-    <script
-        src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-    ></script>
-    <style>
-        /* Estilos generales */
-        body {
-            margin: 0;
-            padding: 0;
-            background: url('fondojm4.png') no-repeat center center fixed;
-            background-size: cover;
-            background-color: rgba(0, 0, 0, 0.6);
-            font-family: 'Bebas Neue', sans-serif;
-            font-family: 'Raleway', sans-serif;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>On Medical Group — Futuristic</title>
 
-        /* Capa opaca para encabezado y sección principal */
-        .capa {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.4);
-            z-index: 1;
-        }
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
 
-        /* Estilos del encabezado */
-        header {
-            background-color: transparent;
-            color: #fff;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-            padding: 10px 0;
-        }
+  <!-- Axios -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-        .logo {
-            margin: 20px 0;
-        }
-
-        .logo img {
-            width: 100px; /* Ancho del logotipo */
-        }
-
-        nav {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 10px 0;
-            flex-direction: column;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #fff;
-            margin: 0 20px;
-            font-size: 18px;
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            padding: 5px;
-        }
-
-        .phone {
-            display: flex;
-            align-items: center;
-            margin-left: 20px;
-            color: #fff;
-        }
-
-        .phone-icon {
-            margin-right: 5px;
-        }
-
-        .phone-number {
-            font-size: 18px;
-        }
-
-        /* Estilos de la sección */
-        .main-section {
-            text-align: center;
-            margin: 20px auto;
-            padding: 20px;
-            
-            position: relative;
-            z-index: 2;
-        }
-
-        .section-title {
-            color: #fff;
-            font-size: 36px;
-        }
-
-        .contact-button {
-            background-color: #fff;
-            color: #000;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .contact-button:hover {
-            background-color: #444;
-            color: #fff;
-        }
-
-        /* Estilos responsivos */
-        @media (max-width: 768px) {
-            .logo img {
-                width: 80px; /* Ancho del logotipo en dispositivos más pequeños */
-            }
-        }
-
-         .seccion-ventajas {
-            display: flex;
-            flex-wrap: wrap;
-            padding: 20px;
-        }
-
-        .imagen {
-            flex: 1;
-            border-radius: 10px;
-            margin: 10px;
-        }
-
-        .descripcion {
-            flex: 2;
-            text-align: center;
-            margin: 10px;
-        }
-
-        .seccion-ventajas:nth-child(odd) {
-            background-color: orange;
-        }
-
-        .seccion-ventajas:nth-child(even) {
-            background-color: black;
-            color: white; /* Cambiamos el color del texto en las secciones negras para mayor legibilidad */
-        }
-
-/* ... Tus estilos previos ... */
-
-.servicios {
-    display: flex;
-    justify-content: left;
-    flex-wrap: wrap;
-    color: white;
-}
-
-.servicio {
-    cursor: pointer;
-    background: orange;
-    border-radius: 10px;
-    margin: 10px;
-}
-
-
-.caja-servicio {
-    display: flex;
-    align-items: center;
-    padding: 5px;
-    background: orange;
-    border-radius: 10px;
-}
-
-.caja-servicio a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px; /* Ancho del círculo */
-    height: 50px; /* Altura del círculo */
-    border-radius: 50%;
-    border: 1px solid white;
-    text-decoration: none;
-    color: white;
-    margin: 5px;
-    background: orange; /* Fondo azul */
-}
-
-.caja-servicio i {
-    color: white;
-    font-size: 24px; /* Tamaño del ícono */
-    margin-right: 5px;
-    margin-left: 5px;
-}
-
-
-
-/* Estilos para el menú de hamburguesa y el menú principal */
-.menu-mobile {
-    display: none;
-}
-
-@media (max-width: 768px) {
-    .menu-mobile {
-        display: block;
-        text-align: center;
-        padding: 10px;
-    }
-    header {
-        display: none;
+  <style>
+    :root{
+      --bg:#0a0a0f;
+      --bg-2:#0f0f17;
+      --text:#e6e7ee;
+      --muted:#9aa0ad;
+      --neon:#c6ff00; /* lima neón */
+      --neon-2:#6bffb8; 
+      --card:#12121c;
+      --border:#1f2030;
+      --accent:#76ff03;
+      --error:#ff5577;
+      --ok:#00d4a6;
+      --shadow-neon: 0 0 24px rgba(198,255,0,.25), inset 0 0 24px rgba(198,255,0,.06);
+      --radius: 20px;
+      --trans: 240ms cubic-bezier(.2,.8,.2,1);
     }
 
-    /* Estilos para el menú de hamburguesa */
-    .hamburger {
-        display: block;
-        cursor: pointer;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 800px at 110% -10%, rgba(198,255,0,.08), transparent 60%),
+        radial-gradient(1200px 800px at -10% 110%, rgba(107,255,184,.08), transparent 60%),
+        linear-gradient(180deg, var(--bg), var(--bg-2));
+      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      overflow-x:hidden;
     }
 
-    .bar {
-        width: 25px;
-        height: 3px;
-        background-color: #fff;
-        margin: 6px auto;
-        transition: 0.4s;
+    /* Background grid + scanlines */
+    body::before, body::after{
+      content:"";
+      position:fixed; inset:0; pointer-events:none; z-index:0;
+    }
+    body::before{
+      background:
+        linear-gradient(transparent 95%, rgba(255,255,255,.04) 96%) 0 0 / 100% 3px,
+        linear-gradient(90deg, transparent 95%, rgba(255,255,255,.04) 96%) 0 0 / 3px 100%;
+      mask: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.8), transparent 60%);
+      opacity:.25;
+    }
+    body::after{
+      background: repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 2px, transparent 2px 4px);
+      mix-blend-mode:soft-light;
+      opacity:.4;
     }
 
-    .hamburger.active .bar:nth-child(1) {
-        transform: rotate(-45deg) translate(-5px, 6px);
+    .container{ width:min(1200px, 92%); margin-inline:auto; position:relative; z-index:1; }
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter: blur(10px);
+      background:linear-gradient(180deg, rgba(10,10,15,.85), rgba(10,10,15,.65));
+      border-bottom:1px solid var(--border);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+      padding:14px 0;
+    }
+    .logo{
+      display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text);
+    }
+    .logo-mark{
+      width:34px; height:34px; border-radius:8px;
+      background:
+        conic-gradient(from 45deg, var(--neon) 0 25%, transparent 0 50%, var(--neon-2) 0 75%, transparent 0);
+      box-shadow: var(--shadow-neon);
+      position:relative;
+    }
+    .logo-text{
+      font-family:Orbitron, Inter, sans-serif; font-weight:800; letter-spacing:.06em;
+      text-transform:uppercase; font-size:18px;
+    }
+    nav ul{
+      list-style:none; display:flex; gap:22px; padding:0; margin:0;
+    }
+    nav a{
+      color:var(--muted); text-decoration:none; font-weight:600; padding:10px 14px; border-radius:12px;
+      transition:var(--trans); position:relative;
+    }
+    nav a:hover{ color:var(--text); }
+    nav a.active{ color:#111; background:var(--neon); box-shadow:0 0 24px rgba(198,255,0,.35); }
+
+    .cta{
+      border:1px solid var(--border); padding:10px 16px; border-radius:12px; color:var(--text); text-decoration:none; font-weight:700;
+      transition:var(--trans); position:relative; overflow:hidden;
+    }
+    .cta::after{
+      content:""; position:absolute; inset:0; border-radius:inherit;
+      background:linear-gradient(90deg, transparent, rgba(198,255,0,.15), transparent);
+      transform:translateX(-100%); transition: transform .7s ease;
+    }
+    .cta:hover{ border-color:rgba(198,255,0,.5); box-shadow:var(--shadow-neon); color:var(--text); }
+    .cta:hover::after{ transform:translateX(100%); }
+
+    /* Hero */
+    .hero{ padding:80px 0 30px; position:relative; }
+    .hero-grid{
+      position:absolute; inset:-60px 0 0 0; z-index:0; pointer-events:none;
+    }
+    .hero-grid svg{ width:100%; height:100%; }
+    .hero-wrap{
+      display:grid; grid-template-columns: 1.2fr .8fr; gap:40px; align-items:center;
+    }
+    .kicker{
+      color:var(--neon); font-weight:800; letter-spacing:.18em; text-transform:uppercase; font-size:12px; margin-bottom:14px;
+    }
+    h1{
+      margin:0 0 14px; font-size: clamp(32px, 5vw, 64px);
+      font-family:Orbitron, Inter, sans-serif; letter-spacing:.02em;
+      line-height:1.05;
+      text-shadow:0 0 20px rgba(198,255,0,.08);
+    }
+    .lead{
+      color:var(--muted); font-size:18px; line-height:1.6; margin:0 0 26px;
+    }
+    .hero-card{
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--border); border-radius:var(--radius); padding:22px;
+      box-shadow: 0 10px 40px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.02);
+      position:relative; overflow:hidden;
+      transform-style: preserve-3d; perspective:1000px;
+    }
+    .hero-card::before{
+      content:""; position:absolute; inset:-2px; border-radius:inherit; padding:2px;
+      background: conic-gradient(from 0deg, rgba(198,255,0,.0), rgba(198,255,0,.25), rgba(107,255,184,.25), rgba(198,255,0,.0));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      animation: spin 8s linear infinite;
+      opacity:.6;
+    }
+    @keyframes spin{ to{ transform:rotate(1turn); } }
+
+    .hero-actions{ display:flex; gap:12px; flex-wrap:wrap; }
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:14px 18px; border-radius:14px; border:1px solid var(--border);
+      background:#141422; color:var(--text); text-decoration:none; font-weight:800; letter-spacing:.02em;
+      transition:var(--trans);
+    }
+    .btn.primary{
+      background:linear-gradient(180deg, var(--neon), #9bff00);
+      color:#0a0a0f; border-color:transparent; box-shadow:0 10px 30px rgba(198,255,0,.35);
+    }
+    .btn:hover{ transform: translateY(-1.5px); box-shadow:0 10px 24px rgba(0,0,0,.35); }
+
+    /* Metrics */
+    .metrics{
+      display:grid; grid-template-columns: repeat(3,1fr); gap:18px; margin-top:30px;
+    }
+    .metric{
+      border:1px solid var(--border); border-radius:16px; padding:20px; background:#0f0f19;
+    }
+    .metric .num{
+      font-size: clamp(38px, 5vw, 64px);
+      font-weight:900; font-family:Orbitron, Inter, sans-serif; letter-spacing:.02em; line-height:1;
+      color:var(--neon);
+      text-shadow:0 0 24px rgba(198,255,0,.25);
+    }
+    .metric p{ margin:6px 0 0; color:var(--muted); }
+
+    /* Catalog */
+    .section{ padding:70px 0; }
+    .section h2{
+      font-family:Orbitron, Inter, sans-serif;
+      font-size: clamp(26px, 3vw, 40px);
+      margin:0 0 14px;
+    }
+    .section .sub{ color:var(--muted); margin:0 0 26px; }
+
+    .grid{
+      display:grid; grid-template-columns: repeat(4,1fr); gap:16px;
+    }
+    @media (max-width:1000px){ .grid{ grid-template-columns: repeat(2,1fr);} .hero-wrap{ grid-template-columns: 1fr; } }
+    @media (max-width:560px){ .grid{ grid-template-columns:1fr; } .metrics{ grid-template-columns:1fr; } }
+
+    .card{
+      position:relative; overflow:hidden; border-radius:18px;
+      border:1px solid var(--border); background:linear-gradient(180deg, #11111a, #0d0d16);
+      transition: transform var(--trans), box-shadow var(--trans), border-color var(--trans);
+      transform-style:preserve-3d;
+    }
+    .card:hover{
+      transform: translateY(-6px) rotateX(2deg) rotateY(-2deg);
+      border-color: rgba(198,255,0,.4);
+      box-shadow: 0 16px 40px rgba(0,0,0,.5), 0 0 32px rgba(198,255,0,.12);
+    }
+    .card-media{
+      aspect-ratio: 16/10;
+      background:
+        radial-gradient(120px 80px at 80% 20%, rgba(198,255,0,.12), transparent 60%),
+        linear-gradient(135deg, #10101a, #0d0d15);
+      display:grid; place-items:center; color:var(--muted); font-weight:800; letter-spacing:.12em; text-transform:uppercase;
+    }
+    .card h3{
+      margin:14px 14px 6px; font-size:20px; font-weight:800;
+      display:flex; align-items:center; justify-content:space-between; gap:8px;
+    }
+    .tag{
+      font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:#111; background:var(--neon); padding:6px 10px; border-radius:999px;
+    }
+    .rating{ margin:0 14px 16px; color:var(--muted); font-size:14px; }
+    .rating .strong{ color:var(--text); font-weight:800; }
+
+    /* Timeline */
+    .timeline{
+      position:relative; padding-top:20px;
+    }
+    .timeline svg{
+      position:absolute; inset:0; pointer-events:none; opacity:.35;
+    }
+    .steps{
+      display:grid; grid-template-columns: repeat(4,1fr); gap:16px;
+    }
+    @media (max-width:900px){ .steps{ grid-template-columns: 1fr 1fr; } }
+    @media (max-width:560px){ .steps{ grid-template-columns: 1fr; } }
+
+    .step{
+      background:#0f0f19; border:1px solid var(--border); border-radius:16px; padding:18px 16px; position:relative;
+    }
+    .step h4{
+      margin:0 0 8px; width:38px; height:38px; display:grid; place-items:center; border-radius:12px; background:var(--neon); color:#111; font-family:Orbitron; 
+      box-shadow: var(--shadow-neon);
+    }
+    .step p{ margin:0; color:var(--muted); }
+
+    /* Form */
+    .form{
+      display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-top:10px;
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+      padding:20px; border-radius:18px; border:1px solid var(--border);
+    }
+    @media (max-width:800px){ .form{ grid-template-columns:1fr; } }
+    .field{
+      position:relative;
+    }
+    .field input, .field select, .field textarea{
+      width:100%; background:#0e0e17; color:var(--text); border:1px solid var(--border); border-radius:12px;
+      padding:18px 14px 14px; outline:none; transition:var(--trans); font-size:16px;
+    }
+    .field textarea{ min-height:120px; resize:vertical; }
+    .field label{
+      position:absolute; left:12px; top:12px; padding:0 6px; color:var(--muted); background:#0e0e17;
+      transform-origin:left top; transition:var(--trans); pointer-events:none;
+    }
+    .field:focus-within label, .field.has-value label{
+      transform: translateY(-12px) scale(.86);
+      color:var(--neon);
+    }
+    .field:focus-within input, .field:focus-within select, .field:focus-within textarea{
+      border-color: rgba(198,255,0,.5); box-shadow: var(--shadow-neon);
+    }
+    .form-actions{
+      grid-column:1/-1; display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap;
     }
 
-    .hamburger.active .bar:nth-child(2) {
-        opacity: 0;
+    .toast{
+      position:fixed; right:20px; bottom:20px; z-index:20; padding:14px 16px; border-radius:14px; font-weight:700;
+      background:#0f1923; color:var(--text); border:1px solid var(--border); box-shadow:0 10px 30px rgba(0,0,0,.5);
+      display:none;
     }
+    .toast.ok{ border-color: rgba(0,212,166,.5); box-shadow:0 0 24px rgba(0,212,166,.3); }
+    .toast.err{ border-color: rgba(255,85,119,.5); box-shadow:0 0 24px rgba(255,85,119,.25); }
 
-    .hamburger.active .bar:nth-child(3) {
-        transform: rotate(45deg) translate(-5px, -6px);
-    }
+    /* Reveal base */
+    .reveal{ opacity:0; transform: translateY(14px) scale(.98); }
+    .reveal.show{ opacity:1; transform:none; transition: 700ms var(--trans); }
+
+
+
+
+    /* Accesibilidad visual oculta */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* Desktop por defecto */
+.nav-desktop{display:flex; align-items:center; gap:0}
+.burger{display:none}
+
+/* Mobile: ocultar nav de escritorio y mostrar hamburguesa */
+@media (max-width: 900px){
+  .nav-desktop{display:none}
+  .burger{
+    display:inline-grid; place-items:center; width:44px; height:44px;
+    border:1px solid var(--border); background:#11131a; border-radius:12px; cursor:pointer;
+    transition:var(--trans)
+  }
+  .burger:hover{box-shadow:var(--shadow-neon); border-color:rgba(198,255,0,.45)}
+  .burger-line, .burger-line::before, .burger-line::after{
+    content:""; display:block; width:20px; height:2px; background:var(--text); border-radius:2px; position:relative; transition:var(--trans)
+  }
+  .burger-line::before{position:absolute; top:-6px}
+  .burger-line::after{position:absolute; top:6px}
+  .burger[aria-expanded="true"] .burger-line{background:transparent}
+  .burger[aria-expanded="true"] .burger-line::before{top:0; transform:rotate(45deg); background:var(--neon)}
+  .burger[aria-expanded="true"] .burger-line::after{top:0; transform:rotate(-45deg); background:var(--neon)}
+
+  /* Panel móvil tipo drawer */
+  .mobile-nav{
+    position:fixed; inset:0 0 0 auto; width:min(86%, 360px);
+    background:linear-gradient(180deg, #0e0f17, #0b0c14);
+    border-left:1px solid var(--border);
+    transform:translateX(100%); transition:transform .35s ease;
+    z-index:19; display:block;
+  }
+  .mobile-nav.open{ transform:translateX(0) }
+  .mobile-nav__inner{ padding:18px; display:flex; flex-direction:column; gap:10px }
+  .mobile-link{
+    display:block; padding:14px 12px; border:1px solid var(--border); border-radius:14px;
+    color:var(--text); text-decoration:none; font-weight:700; background:#10121a; transition:var(--trans)
+  }
+  .mobile-link:hover{ border-color:rgba(198,255,0,.45); box-shadow:var(--shadow-neon) }
+  .mobile-cta{ text-align:center }
+
+  /* Backdrop */
+  .mobile-backdrop{
+    position:fixed; inset:0; background:rgba(0,0,0,.5); backdrop-filter:blur(2px);
+    z-index:18; opacity:0; transition:opacity .35s ease; display:block;
+  }
+  .mobile-backdrop.show{ opacity:1 }
+  body.lock{ overflow:hidden }
 }
 
-/* Cambiar el fondo al hacer hover en los enlaces del menú */
-nav a:hover {
-    background-color: orange;
-}
-
-.boton-flotante {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background-color: #007BFF;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            z-index: 2;
-        }
-
-        .boton-flotante select {
-            background-color: transparent;
-            color: white;
-            border: none;
-            font-size: 16px;
-        }
-
-.explicacion-servicio {
-        display: block;
-    padding: 10px;
-    margin: 10px;
-
-}
-
-
-.caja-all {
-
-    display: block;
-    width: 100%;
-}
-
-    .antesydespues {
-    position: relative;
-
-    height: 250px; /* Alto de la imagen */
-    margin: auto;
-    overflow: hidden;
-}
-
-.antesydespues .antes,
-.antesydespues .despues {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    transition: opacity 0.3s; /* Agrega una transición para la opacidad */
-}
-
-.antesydespues img {
-    height: 100%;
-    object-fit: cover;
-        border-radius: 10px;
-}
-
-.switch {
-    cursor: pointer;
-}
-
- .results-section {
-    text-align: center;
-    margin: 20px 0;
-         background: black;
-    padding: 10px;
-    overflow: hidden;
-}
-
-@media (max-width: 768px) {
-            .seccion-ventajas {
-                flex-direction: column;
-            }
-
-            .imagen, .descripcion {
-                flex: none;
-                width: 100%;
-            }
-        }
-  .formulario {
-            color: #fff;
-            font-size: 18px;
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            padding: 20px;
-            width: 80%;
-            max-width: 400px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-      margin: 20px auto;
-        }
-
-        .formulario label {
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .formulario input, .formulario textarea, .formulario select {
-               width: 90%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .formulario button {
-            background-color: #007BFF;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .formulario button:hover {
-            background-color: #0056b3;
-        }
-
-           .wework {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            text-align: center;
-            color: white;
-            background: black;
-        }
-
-        .wework h1 {
-            font-size: 36px;
-        }
-
-        .videos {
-            display: flex;
-            justify-content: space-evenly;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-
-        .video{
-
-            margin: 10px;
-    }
-
-
-        .like-icon {
-    color: black; /* Cambia el color a tu preferencia */
-    cursor: pointer;
-    top: 10px;
-    left: 10px;
-    font-size: 24px;
-
-}
-
-       .like-icon.clicked {
-            color: blue;
-        }
-
-        /* Estilos para el footer */
-footer {
-    background-color: #333;
-    color: #fff;
-    padding: 20px 0;
-    text-align: center;
-}
-
-/* Estilos para los enlaces del footer */
-.footer-links ul {
-    list-style: none;
-    padding: 0;
-}
-
-.footer-links ul li {
-    display: inline;
-    margin-right: 20px;
-}
-
-.footer-links a {
-    text-decoration: none;
-    color: #fff;
-    font-weight: bold;
-    font-size: 14px;
-}
-
-/* Estilos para los enlaces al pasar el ratón */
-.footer-links a:hover {
-    text-decoration: underline;
-}
-
-          #map {
-            width: 100%;
-            height: 400px;
-        }
-    </style>
+  </style>
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WGRW5H95"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-<div class="menu-mobile">
-    <div class="logo">
-            <img src="logoon.png" alt="Logo">
-        </div>
-    <div class="hamburger" id="hamburger">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
+
+  <header>
+  <div class="container nav">
+    <a href="#" class="logo">
+      <div class="logo-mark"></div>
+      <div class="logo-text">On Medical Group</div>
+    </a>
+
+    <!-- Menú de escritorio -->
+    <nav class="nav-desktop">
+      <ul>
+        <li><a href="#catalogo">Catálogo</a></li>
+        <li><a href="#pasos">Cómo trabajamos</a></li>
+        <li><a class="active" href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+    <a class="cta nav-desktop" href="#contacto">Solicitar demo</a>
+
+    <!-- Botón hamburguesa -->
+    <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-nav">
+      <span class="burger-line"></span>
+      <span class="sr-only">Menú</span>
+    </button>
+  </div>
+
+  <!-- Panel móvil -->
+  <div class="mobile-nav" id="mobile-nav" hidden>
+    <div class="mobile-nav__inner">
+      <a href="#catalogo" class="mobile-link">Catálogo</a>
+      <a href="#pasos" class="mobile-link">Cómo trabajamos</a>
+      <a href="#contacto" class="mobile-link">Contacto</a>
+      <a class="btn primary mobile-cta" href="#contacto">Solicitar demo</a>
     </div>
-        <nav class="menu-servicios" style="display: none">
-             <a href="#">Nosotros</a>
-            <a href="#">Resultados</a>
-            <a href="#">Beneficios</a>
-            <a href="#">Contáctanos</a>
-        </nav>
-</div>
+  </div>
 
-    <header>
-        <div class="logo">
-            <img src="JM3.png" alt="Logo">
-        </div>
-        <nav>
-            <a href="#">Nosotros</a>
-            <a href="#">Resultados</a>
-            <a href="#">Beneficios</a>
-            <a href="#">Contáctanos</a>
-            <div>
-                <i class="fa fa-phone phone-icon"></i>
-               <a class="tagtelefono" href="tel:+34610002502">+34 610 00 25 02</a>
+  <!-- Fondo oscurecido -->
+  <div class="mobile-backdrop" id="mobile-backdrop" hidden></div>
+</header>
+
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-grid">
+        <!-- Animated diagonal wires -->
+        <svg viewBox="0 0 1200 500" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="wire" x1="0" x2="1">
+              <stop offset="0" stop-color="#c6ff00" stop-opacity=".0"/>
+              <stop offset=".5" stop-color="#c6ff00" stop-opacity=".45"/>
+              <stop offset="1" stop-color="#c6ff00" stop-opacity=".0"/>
+            </linearGradient>
+          </defs>
+          <g stroke="url(#wire)" stroke-width="1.5">
+            <path d="M0,420 L1200,120">
+              <animate attributeName="stroke-opacity" values=".1;.5;.1" dur="5s" repeatCount="indefinite"/>
+            </path>
+            <path d="M0,480 L1200,180">
+              <animate attributeName="stroke-opacity" values=".05;.45;.05" dur="6s" repeatCount="indefinite"/>
+            </path>
+            <path d="M0,360 L1200,60">
+              <animate attributeName="stroke-opacity" values=".05;.4;.05" dur="7s" repeatCount="indefinite"/>
+            </path>
+          </g>
+        </svg>
+      </div>
+      <div class="container hero-wrap">
+        <div class="hero-copy">
+          <div class="kicker">Tecnología estética de próxima generación</div>
+          <h1>¿Tienes un Centro Médico Estético?</h1>
+          <p class="lead">
+            Invertir en aparatología es un reto. <strong>On Medical</strong> lo convierte en una ventaja competitiva con
+            soluciones <em>plug &amp; play</em>, formación a tu equipo y soporte 360º.
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#catalogo">Ver catálogo</a>
+            <a class="btn" href="#contacto">Hablar con un asesor</a>
+          </div>
+
+          <div class="metrics">
+            <div class="metric reveal">
+              <div class="num" data-count="5">0</div>
+              <p>Años adelantados al futuro</p>
             </div>
-        </nav>
-    </header>
-    <section class="main-section">
-        <h1 class="section-title">Exclusivo para Centros Médicos y Estéticos</h1>
-        <button class="contact-button"><a href="#contacto">Contáctanos</a></button>
+            <div class="metric reveal">
+              <div class="num" data-count="10" data-suffix="+">0</div>
+              <p>Sectores donde operamos</p>
+            </div>
+            <div class="metric reveal">
+              <div class="num" data-count="100" data-suffix="%">0</div>
+              <p>Planes 100% personalizables</p>
+            </div>
+          </div>
+        </div>
 
+        <div class="hero-card reveal" id="card-tilt">
+          <h3 style="margin:0 0 8px">Suite ON</h3>
+          <p class="lead" style="margin:0 0 14px">
+            Aparatología vanguardista con metodología certificada para tu personal.
+          </p>
+          <ul style="margin:0; padding-left:18px; color:var(--muted); line-height:1.8">
+            <li>Instalación y entrega en 24h*</li>
+            <li>Formación presencial/online</li>
+            <li>Mantenimiento y soporte continuo</li>
+          </ul>
+        </div>
+      </div>
     </section>
-<section class="servicios">
-    <div class="caja-all">
-        <div class="servicio" data-service="bathrooms">
-            <div class="caja-servicio">
-                <a>
-                    <i class="fa fa-check"></i>
-                </a>
-                <h2 class="nombre-servicio">Nuestros Resultados</h2>
-            </div>
-            <div class="explicacion-servicio" data-service="bathrooms">
-               <div class="antesydespues">
-                    <div class="antes">
-                        <img src="review6.jpg" alt="">
-                    </div>
-                    <div class="despues">
-                        <img src="review7.jpg" alt="">
-                    </div>
-                </div>
-                            <h3 class="switch1">Antes</h3>
-                            <h3 class="switch2" style="display:none">Después</h3>
 
-                <h2>Resultados Instantáneos</h2>
-                <p>Los propietarios de centros estéticos 💅🏻 estarán encantados de saber que los resultados del OnFace Lighting Facial son instantáneos, y se pueden experimentar en apenas una sesión. Este es un punto clave para destacar al promocionar este servicio en tu centro estético. Los clientes buscan soluciones que les brinden resultados visibles y satisfactorios de inmediato, y el OnFace Lighting Facial cumple con esta expectativa de manera impresionante.</p>
-            </div>
+    <!-- CATALOGO -->
+    <section id="catalogo" class="section container">
+      <h2 class="reveal">Adelántate 5 años al Futuro de la Estética</h2>
+      <p class="sub reveal">Catálogo destacado y centros que ya confían en nosotros este año.</p>
+
+      <div class="grid">
+        <!-- Card -->
+        <article class="card reveal">
+          <div class="card-media">OnFace</div>
+          <h3>OnFace <span class="tag">Facial</span></h3>
+          <p class="rating"><span class="strong" data-count="34">0</span> centros lo eligieron este año.</p>
+        </article>
+
+        <article class="card reveal">
+          <div class="card-media">On Body</div>
+          <h3>On Body <span class="tag">Corporal</span></h3>
+          <p class="rating"><span class="strong" data-count="25">0</span> centros lo eligieron este año.</p>
+        </article>
+
+        <article class="card reveal">
+          <div class="card-media">On Exe</div>
+          <h3>On Exe <span class="tag">Performance</span></h3>
+          <p class="rating"><span class="strong" data-count="56">0</span> centros lo eligieron este año.</p>
+        </article>
+
+        <article class="card reveal">
+          <div class="card-media">On Laser</div>
+          <h3>On Laser <span class="tag">Láser</span></h3>
+          <p class="rating"><span class="strong" data-count="82">0</span> centros lo eligieron este año.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section id="pasos" class="section container timeline">
+      <h2 class="reveal">Así trabajamos</h2>
+      <p class="sub reveal">Cuatro pasos, cero fricción.</p>
+
+      <!-- Animated line -->
+      <svg viewBox="0 0 1200 140">
+        <defs>
+          <linearGradient id="stroke" x1="0" x2="1">
+            <stop offset="0" stop-color="#c6ff00" stop-opacity=".0"/>
+            <stop offset=".5" stop-color="#c6ff00" stop-opacity=".8"/>
+            <stop offset="1" stop-color="#6bffb8" stop-opacity=".0"/>
+          </linearGradient>
+        </defs>
+        <path d="M0,100 C250,40 350,160 600,100 850,40 950,160 1200,100" fill="none" stroke="url(#stroke)" stroke-width="2">
+          <animate attributeName="stroke-dasharray" values="0,1400; 1400,0" dur="6s" repeatCount="indefinite"/>
+        </path>
+      </svg>
+
+      <div class="steps">
+        <div class="step reveal">
+          <h4>1</h4>
+          <p>Nos conocemos por llamada o videollamada.</p>
         </div>
-    </div>
-   
-</section>
-<section class="results-section">
-    <h1 class="section-title" style="text-align: center; ">Resultados</h1>
-    <div class="before_after_slider" style="position: relative; width: 400px; height: 225px; margin: auto;">
-    <div class="img_after" style="position: absolute; width: 100%;">
-        <img src="onface2.jpeg" width="400" height="225" alt="">
-    </div>
-    <div class="img_before" style="position: absolute; overflow: hidden; border-right: solid 4px #FFF; width: 200px;">
-        <img src="onface.jpeg" width="400" height="225" alt="">
-    </div>
-</div>
-
-</section>
-  <div class="seccion-ventajas">
-        <div class="imagen">
-            <img src="jm31.jpg" alt="Imagen 1" width="100%" height="auto">
+        <div class="step reveal">
+          <h4>2</h4>
+          <p>Presupuesto personalizable según la aparatología que te interesa.</p>
         </div>
-        <div class="descripcion">
-            <h1>100% manos libres</h1>
-            <p>Este tratamiento se caracteriza por su comodidad, ya que es completamente manos libres. Esto significa que tus clientes pueden relajarse y disfrutar de la experiencia sin preocuparse por intervenciones manuales, lo que aumenta la satisfacción del cliente.</p>
+        <div class="step reveal">
+          <h4>3</h4>
+          <p>Opciones de financiación claras, contrato transparente.</p>
         </div>
-    </div>
-
-    <div class="seccion-ventajas">
-        <div class="imagen">
-            <img src="jm32.jpg" alt="Imagen 2" width="100%" height="auto">
+        <div class="step reveal">
+          <h4>4</h4>
+          <p>Primer pago y envío en 24h con todos los complementos.</p>
         </div>
-        <div class="descripcion">
-            <h1>NO Invasivo y NO Quirúrgico</h1>
-            <p> es una opción atractiva para aquellos clientes que desean mejorar su apariencia sin someterse a procedimientos invasivos o quirúrgicos. Esta característica hace que sea una opción popular en tu centro estético y atrae a un público más amplio.</p>
+      </div>
+    </section>
+
+    <!-- FORM -->
+    <section id="contacto" class="section container">
+      <h2 class="reveal">Hablemos</h2>
+      <p class="sub reveal">Déjanos tus datos y te contactamos hoy.</p>
+
+      <form class="form" id="contact-form" novalidate>
+        <div class="field"><label for="nombre">Nombre</label><input id="nombre" name="nombre" required /></div>
+        <div class="field"><label for="telefono">Teléfono</label><input id="telefono" name="telefono" type="tel" required /></div>
+        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" required /></div>
+        <div class="field"><label for="provincia">Provincia</label><input id="provincia" name="provincia" /></div>
+        <div class="field"><label for="centro">Nombre de tu Centro</label><input id="centro" name="centro" /></div>
+        <div class="field"><label for="aparatologia">Aparatología</label>
+          <select id="aparatologia" name="aparatologia">
+            <option>On Body</option><option>On Face</option><option>On Exe</option><option>On Derma</option>
+          </select>
         </div>
-    </div>
-
-    <div class="seccion-ventajas">
-        <div class="imagen">
-            <img src="jm33.jpg" alt="Imagen 3" width="100%" height="auto">
+        <div class="field" style="grid-column:1/-1">
+          <label for="obs">Observaciones</label>
+          <textarea id="obs" name="observaciones" placeholder="Cuéntanos qué necesitas..."></textarea>
         </div>
-        <div class="descripcion">
-            <h1>Rentabilidad</h1>
-            <p> la alta rentabilidad y el rápido retorno de la inversión hacen que este tratamiento sea una inversión inteligente para tu negocio. Si deseas obtener más información sobre cómo incorporar el OnFace Lighting Facial en tu centro estético, haz clic para recibir más información y descubrir cómo esta oferta puede impulsar tu éxito en la industria de la estética.</p>
+        <div class="form-actions">
+          <button class="btn" type="reset">Limpiar</button>
+          <button class="btn primary" type="submit">Solicitar presupuesto</button>
         </div>
-    </div>
+      </form>
+    </section>
 
+  </main>
 
+  <div class="toast" id="toast"></div>
 
-<div class="wework">
-        <h1>Reviews ⭐⭐⭐⭐ </h1>
-        <div class="videos">
-            <div class="video">
-                    <video controls style="width: 200px;">
-                        <source src="review1.mp4" type="video/mp4" >
-                        Tu navegador no admite el elemento de video.
-                    </video>
-                <i class="fas fa-thumbs-up like-icon"></i>
+  <script>
+    // Floating labels state
+    document.querySelectorAll('.field input, .field textarea, .field select').forEach(el=>{
+      const set = ()=> el.parentElement.classList.toggle('has-value', !!el.value);
+      el.addEventListener('input', set); set();
+    });
 
-            </div>
-            <div class="video">
-                    <video controls style="width: 200px;">
-                        <source src="onface5.mp4" type="video/mp4">
-                        Tu navegador no admite el elemento de video.
-                    </video>
-                <i class="fas fa-thumbs-up like-icon"></i>
-
-            </div>
-        </div>
-    </div>
-      <div id="map"></div>
-    
-   <div class="formulario" id="contacto">
-        <h2>Contátanos</h2>
-        <form id="myForm">
-            <label for="name">Nombre:</label>
-            <input type="text" id="name" name="name" required>
-            
-            <label for="telephone">Teléfono:</label>
-            <input type="tel" id="telephone" name="telephone" required>
-            
-            <label for="service">Forma de Pago:</label>
-            <select id="service" name="service" required>
-                <option value="Transferencia">Transferencia</option>
-                <option value="Cuotas">Cuotas</option>
-                <option value="Renting">Renting</option>
-                <option value="contado">Al contado</option>
-            </select>
-            
-            <label for="message">Mensaje:</label>
-            <textarea id="message" name="message" rows="4" required></textarea>
-            
-            <button type="submit">Solicitar Más Información</button>
-        </form>
-        <div id="mensaje"></div>
-    </div>
-<div class="boton-whatsapp">
-  <a class="whatsapp" href="https://api.whatsapp.com/send?phone=+34610002502&text=Vengo%20desde%20la%20Publicidad%20de%20Google%20,%20Me%20interesa%20Onface" target="_blank">
-    <img src="https://i.postimg.cc/1tmJyjNG/whatsapp2.png" alt="WhatsApp" style="width: 50px; height:50px; position: fixed; bottom: 10px; right: 5px;">
-  </a>
-</div>
-
-
-<footer>
-    <div class="footer-links">
-        <ul>
-            <li><a href="company-policies.html">Company Policies</a></li>
-            <li><a href="#">Legal Notice</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-        </ul>
-    </div>
-</footer>
-    
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-      <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-    <script type="module">
-
-
-      // Inicializar el mapa en la ubicación especificada
-var map = L.map('map').setView([37.286047, -5.929656], 15); // Cambia las coordenadas y el nivel de zoom según tu ubicación
-
-// Añadir una capa de mapa base de OpenStreetMap
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-}).addTo(map);
-
-// Añadir un marcador en la ubicación deseada
-var marker = L.marker([37.286047, -5.929656]).addTo(map);
-
-// Añadir un popup al marcador
-marker.bindPopup("<b>C. Sta. María Magdalena, 5, bajo D, 41701 Dos Hermanas, Sevilla</b>").openPopup();
-
-        
-      jQuery(document).ready(function ($) {
-    // Código para el cambio de "Antes" y "Después"
-    const imgAntes = $(".antes");
-    const imgDespues = $(".despues");
-    const switch1 = $(".switch1");
-    const switch2 = $(".switch2");
-
-    // Variable para controlar el estado actual (Antes o Después)
-    let estadoActual = "Antes";
-
-    // Función para alternar entre "Antes" y "Después" y animar los cambios
-    function toggleState() {
-        if (estadoActual === "Antes") {
-            estadoActual = "Después";
-
-            // Animación de opacidad
-            imgAntes.animate({ opacity: 0 }, 500);
-            imgDespues.animate({ opacity: 1 }, 500);
-
-            // Cambio del texto
-            switch1.hide();
-            switch2.show();
-        } else {
-            estadoActual = "Antes";
-
-            // Animación de opacidad
-            imgAntes.animate({ opacity: 1 }, 500);
-            imgDespues.animate({ opacity: 0 }, 500);
-
-            // Cambio del texto
-            switch1.show();
-            switch2.hide();
+    // Intersection reveal + counters
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('show');
+          // Counters
+          const num = entry.target.querySelector?.('.num');
+          if(num && !num.dataset.done){
+            animateCount(num, +num.dataset.count, num.dataset.suffix||"");
+            num.dataset.done = "1";
+          }
+          // Small counters inside cards
+          entry.target.querySelectorAll('.strong[data-count]').forEach(el=>{
+            if(!el.dataset.done){ animateCount(el, +el.dataset.count, ""); el.dataset.done = "1"; }
+          });
         }
+      });
+    }, { threshold:.25 });
+
+    document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+
+    function animateCount(el, to, suffix){
+      const start = 0, dur = 1200;
+      const t0 = performance.now();
+      function frame(now){
+        const p = Math.min(1, (now - t0)/dur);
+        const eased = 1 - Math.pow(1-p, 3);
+        el.textContent = Math.round(start + (to - start)*eased) + (suffix || "");
+        if(p<1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
     }
 
-    // Función para iniciar el bucle
-    function startLoop() {
-        setInterval(toggleState, 5000);
+    // Simple tilt for the hero card
+    const tilt = document.getElementById('card-tilt');
+    tilt.addEventListener('pointermove', (e)=>{
+      const r = tilt.getBoundingClientRect();
+      const x = (e.clientX - r.left)/r.width - .5;
+      const y = (e.clientY - r.top)/r.height - .5;
+      tilt.style.transform = `rotateX(${(-y*6).toFixed(2)}deg) rotateY(${(x*6).toFixed(2)}deg) translateZ(0)`;
+    });
+    tilt.addEventListener('pointerleave', ()=> tilt.style.transform = '');
+
+    // Nav active on hash
+    function setActive(){
+      const hash = location.hash || '#contacto';
+      document.querySelectorAll('nav a').forEach(a=> a.classList.toggle('active', a.getAttribute('href')===hash));
+    }
+    window.addEventListener('hashchange', setActive); setActive();
+
+    // Toast helper
+    const toast = document.getElementById('toast');
+    function showToast(msg, ok=true){
+      toast.textContent = msg;
+      toast.className = 'toast ' + (ok?'ok':'err');
+      toast.style.display = 'block';
+      setTimeout(()=> toast.style.display='none', 3200);
     }
 
-    // Inicia el bucle al cargar la página
-    startLoop();
-});
-
-
-        
-        document.addEventListener("DOMContentLoaded", function () {
-            const hamburger = document.getElementById("hamburger");
-            const menuServicios = document.querySelector(".menu-servicios");
-
-            hamburger.addEventListener("click", function () {
-                hamburger.classList.toggle("active");
-                menuServicios.style.display = menuServicios.style.display === "flex" ? "none" : "flex";
-            });
-
-            // Obtener todos los elementos .caja-servicio
-            const cajaServicios = document.querySelectorAll('.caja-servicio');
-
-            // Agregar un controlador de clic a cada .caja-servicio
-            cajaServicios.forEach(cajaServicio => {
-                cajaServicio.addEventListener('click', () => {
-                    // Obtener el servicio correspondiente
-                    const servicioData = cajaServicio.parentElement.getAttribute('data-service');
-                    const explicacionServicio = document.querySelector(`.explicacion-servicio[data-service="${servicioData}"]`);
-
-                    // Mostrar u ocultar la explicación del servicio
-                    if (explicacionServicio.style.display === 'block' || explicacionServicio.style.display === '') {
-                        explicacionServicio.style.display = 'none';
-                    } else {
-                        explicacionServicio.style.display = 'block';
-                    }
-                });
-            });
+    // Form submit with Axios (mock endpoint)
+    const form = document.getElementById('contact-form');
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      // Simple validation
+      if(!form.nombre.value || !form.telefono.value || !form.email.value){
+        showToast('Completa nombre, teléfono y email.', false);
+        return;
+      }
+      const data = Object.fromEntries(new FormData(form).entries());
+      try{
+        // Demo: post contra jsonplaceholder
+        await axios.post('https://jsonplaceholder.typicode.com/posts', data, {
+          headers: { 'Content-Type':'application/json' }
         });
+        showToast('¡Solicitud enviada! Te contactaremos hoy.');
+        form.reset();
+        form.querySelectorAll('.field').forEach(f=>f.classList.remove('has-value'));
+      }catch(err){
+        showToast('Error al enviar. Intenta nuevamente.', false);
+      }
+    });
 
-        (function() {
-            emailjs.init("fhR_iAXbX8Z_g2TG6"); // Reemplaza "user_Ym-r4wRWklw_FuxE" con tu API Key
+    // Smooth scroll for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id = a.getAttribute('href').slice(1);
+        const target = document.getElementById(id);
+        if(target){
+          e.preventDefault();
+          window.scrollTo({ top: target.offsetTop - 70, behavior:'smooth' });
+          history.pushState(null,"","#"+id);
+          setActive();
+        }
+      });
+    });
 
-            document.getElementById('myForm').addEventListener('submit', function(event) {
-                event.preventDefault();
+    
+  (function(){
+    const burger = document.getElementById('burger');
+    const panel  = document.getElementById('mobile-nav');
+    const backdrop = document.getElementById('mobile-backdrop');
 
-                emailjs.sendForm('service_a92vygw', 'template_ys48crt', this)
-                    .then(function(response) {
-                        console.log('Correo electrónico enviado', response);
-                        document.getElementById('mensaje').innerHTML = 'Mensaje enviado con éxito. Gracias.';
-                    }, function(error) {
-                        console.log('Error al enviar el correo electrónico', error);
-                        document.getElementById('mensaje').innerHTML = 'Error al enviar el mensaje. Por favor, inténtalo de nuevo.';
-                    });
-            });
-        })();
+    function openMenu(){
+      burger.setAttribute('aria-expanded','true');
+      panel.hidden = false;
+      backdrop.hidden = false;
+      requestAnimationFrame(()=>{
+        panel.classList.add('open');
+        backdrop.classList.add('show');
+        document.body.classList.add('lock');
+      });
+      // foco al primer link
+      panel.querySelector('a')?.focus();
+    }
+    function closeMenu(){
+      burger.setAttribute('aria-expanded','false');
+      panel.classList.remove('open');
+      backdrop.classList.remove('show');
+      document.body.classList.remove('lock');
+      setTimeout(()=>{ panel.hidden = true; backdrop.hidden = true; }, 300);
+      burger.focus();
+    }
 
-        
-
-    jQuery.noConflict(),jQuery(document).ready(function(){var a=jQuery(".img_before"),b=jQuery(".img_before img").width(),c=Math.round(b/2);a.width(c),jQuery(".before_after_slider").mousemove(function(b){var c=b.offsetX||b.clientX-jQueryimg_after.offset().left;a.width(c)}),jQuery(".before_after_slider").mouseleave(function(b){a.stop().animate({width:c},1e3)})});
-
-    </script>
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '791818712521586');
-fbq('track', 'PageView');
+    burger.addEventListener('click', ()=>{
+      const expanded = burger.getAttribute('aria-expanded') === 'true';
+      expanded ? closeMenu() : openMenu();
+    });
+    backdrop.addEventListener('click', closeMenu);
+    // cerrar con ESC
+    window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeMenu(); });
+    // cerrar al navegar a una sección
+    document.querySelectorAll('#mobile-nav a').forEach(a => {
+      a.addEventListener('click', closeMenu);
+    });
+  })();
 </script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=791818712521586&ev=PageView&noscript=1"
-/></noscript>
+
 </body>
 </html>
