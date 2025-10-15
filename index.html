@@ -7,57 +7,58 @@
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
-
   <!-- Axios -->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
   <style>
     :root{
-      --bg:#0a0a0f;
-      --bg-2:#0f0f17;
-      --text:#e6e7ee;
-      --muted:#9aa0ad;
-      --neon:#c6ff00; /* lima neón */
-      --neon-2:#6bffb8; 
-      --card:#12121c;
-      --border:#1f2030;
-      --accent:#76ff03;
+      /* Paleta clara */
+      --bg:#ffffff;
+      --bg-2:#f9fafb;
+      --text:#111111;
+      --muted:#5f6673;
+      --primary:#15bd68; /* color principal */
+      --primary-2:#8be4b6; /* apoyo suave */
+
+      --card:#ffffff;
+      --border:#e6e8ef;
+      --ok:#15bd68;
       --error:#ff5577;
-      --ok:#00d4a6;
-      --shadow-neon: 0 0 24px rgba(198,255,0,.25), inset 0 0 24px rgba(198,255,0,.06);
-      --radius: 20px;
-      --trans: 240ms cubic-bezier(.2,.8,.2,1);
+
+      --radius:20px;
+      --trans:240ms cubic-bezier(.2,.8,.2,1);
+      --shadow:0 10px 30px rgba(17,17,17,.06);
+      --shadow-strong:0 20px 50px rgba(17,17,17,.10);
     }
 
     *{box-sizing:border-box}
     html,body{height:100%}
+
     body{
       margin:0;
       color:var(--text);
       background:
-        radial-gradient(1200px 800px at 110% -10%, rgba(198,255,0,.08), transparent 60%),
-        radial-gradient(1200px 800px at -10% 110%, rgba(107,255,184,.08), transparent 60%),
+        radial-gradient(1200px 800px at 110% -10%, rgba(21,189,104,.08), transparent 60%),
+        radial-gradient(1200px 800px at -10% 110%, rgba(139,228,182,.08), transparent 60%),
         linear-gradient(180deg, var(--bg), var(--bg-2));
       font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       overflow-x:hidden;
     }
 
-    /* Background grid + scanlines */
+    /* Grid sutil + scanlines muy suaves */
     body::before, body::after{
-      content:"";
-      position:fixed; inset:0; pointer-events:none; z-index:0;
+      content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
     }
     body::before{
       background:
-        linear-gradient(transparent 95%, rgba(255,255,255,.04) 96%) 0 0 / 100% 3px,
-        linear-gradient(90deg, transparent 95%, rgba(255,255,255,.04) 96%) 0 0 / 3px 100%;
-      mask: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.8), transparent 60%);
-      opacity:.25;
+        linear-gradient(transparent 95%, rgba(0,0,0,.035) 96%) 0 0 / 100% 3px,
+        linear-gradient(90deg, transparent 95%, rgba(0,0,0,.035) 96%) 0 0 / 3px 100%;
+      mask: radial-gradient(ellipse at 50% 0%, rgba(0,0,0,.5), transparent 60%);
+      opacity:.15;
     }
     body::after{
-      background: repeating-linear-gradient(180deg, rgba(255,255,255,.03) 0 2px, transparent 2px 4px);
-      mix-blend-mode:soft-light;
-      opacity:.4;
+      background: repeating-linear-gradient(180deg, rgba(0,0,0,.02) 0 2px, transparent 2px 4px);
+      mix-blend-mode:soft-light; opacity:.25;
     }
 
     .container{ width:min(1200px, 92%); margin-inline:auto; position:relative; z-index:1; }
@@ -66,286 +67,274 @@
     header{
       position:sticky; top:0; z-index:10;
       backdrop-filter: blur(10px);
-      background:linear-gradient(180deg, rgba(10,10,15,.85), rgba(10,10,15,.65));
+      background:linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.7));
       border-bottom:1px solid var(--border);
     }
-    .nav{
-      display:flex; align-items:center; justify-content:space-between; gap:16px;
-      padding:14px 0;
-    }
-    .logo{
-      display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text);
-    }
+    .nav{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 0; }
+    .logo{ display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text); }
     .logo-mark{
       width:34px; height:34px; border-radius:8px;
-      background:
-        conic-gradient(from 45deg, var(--neon) 0 25%, transparent 0 50%, var(--neon-2) 0 75%, transparent 0);
-      box-shadow: var(--shadow-neon);
+      background: conic-gradient(from 45deg, var(--primary) 0 25%, transparent 0 50%, var(--primary-2) 0 75%, transparent 0);
+      box-shadow: 0 0 24px rgba(21,189,104,.25), inset 0 0 24px rgba(21,189,104,.06);
       position:relative;
     }
-    .logo-text{
-      font-family:Orbitron, Inter, sans-serif; font-weight:800; letter-spacing:.06em;
-      text-transform:uppercase; font-size:18px;
-    }
-    nav ul{
-      list-style:none; display:flex; gap:22px; padding:0; margin:0;
-    }
+    .logo-text{ font-family:Orbitron, Inter, sans-serif; font-weight:800; letter-spacing:.06em; text-transform:uppercase; font-size:18px; }
+
+    nav ul{ list-style:none; display:flex; gap:22px; padding:0; margin:0; }
     nav a{
-      color:var(--muted); text-decoration:none; font-weight:600; padding:10px 14px; border-radius:12px;
-      transition:var(--trans); position:relative;
+      color:var(--muted); text-decoration:none; font-weight:700;
+      padding:10px 14px; border-radius:12px; transition:var(--trans); position:relative;
     }
-    nav a:hover{ color:var(--text); }
-    nav a.active{ color:#111; background:var(--neon); box-shadow:0 0 24px rgba(198,255,0,.35); }
+    nav a:hover{ color:var(--text); background:#f3f5f7; }
+    nav a.active{ color:#fff; background:var(--primary); box-shadow:0 0 24px rgba(21,189,104,.35); }
 
     .cta{
-      border:1px solid var(--border); padding:10px 16px; border-radius:12px; color:var(--text); text-decoration:none; font-weight:700;
-      transition:var(--trans); position:relative; overflow:hidden;
+      border:1px solid var(--border); padding:10px 16px; border-radius:12px;
+      color:var(--text); text-decoration:none; font-weight:800; transition:var(--trans); position:relative; overflow:hidden;
+      background:#fff;
     }
     .cta::after{
       content:""; position:absolute; inset:0; border-radius:inherit;
-      background:linear-gradient(90deg, transparent, rgba(198,255,0,.15), transparent);
+      background:linear-gradient(90deg, transparent, rgba(21,189,104,.18), transparent);
       transform:translateX(-100%); transition: transform .7s ease;
     }
-    .cta:hover{ border-color:rgba(198,255,0,.5); box-shadow:var(--shadow-neon); color:var(--text); }
+    .cta:hover{ border-color:rgba(21,189,104,.4); box-shadow:var(--shadow); }
     .cta:hover::after{ transform:translateX(100%); }
 
-    /* Hero */
+    /* HERO */
     .hero{ padding:80px 0 30px; position:relative; }
-    .hero-grid{
-      position:absolute; inset:-60px 0 0 0; z-index:0; pointer-events:none;
-    }
+    .hero-grid{ position:absolute; inset:-60px 0 0 0; z-index:0; pointer-events:none; }
     .hero-grid svg{ width:100%; height:100%; }
-    .hero-wrap{
-      display:grid; grid-template-columns: 1.2fr .8fr; gap:40px; align-items:center;
-    }
-    .kicker{
-      color:var(--neon); font-weight:800; letter-spacing:.18em; text-transform:uppercase; font-size:12px; margin-bottom:14px;
-    }
-    h1{
-      margin:0 0 14px; font-size: clamp(32px, 5vw, 64px);
-      font-family:Orbitron, Inter, sans-serif; letter-spacing:.02em;
-      line-height:1.05;
-      text-shadow:0 0 20px rgba(198,255,0,.08);
-    }
-    .lead{
-      color:var(--muted); font-size:18px; line-height:1.6; margin:0 0 26px;
-    }
-    .hero-card{
-      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      border:1px solid var(--border); border-radius:var(--radius); padding:22px;
-      box-shadow: 0 10px 40px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.02);
-      position:relative; overflow:hidden;
-      transform-style: preserve-3d; perspective:1000px;
-    }
-    .hero-card::before{
-      content:""; position:absolute; inset:-2px; border-radius:inherit; padding:2px;
-      background: conic-gradient(from 0deg, rgba(198,255,0,.0), rgba(198,255,0,.25), rgba(107,255,184,.25), rgba(198,255,0,.0));
-      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-      -webkit-mask-composite: xor; mask-composite: exclude;
-      animation: spin 8s linear infinite;
-      opacity:.6;
-    }
-    @keyframes spin{ to{ transform:rotate(1turn); } }
+
+    .hero-wrap{ display:grid; grid-template-columns: 1.2fr .8fr; gap:40px; align-items:center; }
+    .kicker{ color:var(--primary); font-weight:800; letter-spacing:.18em; text-transform:uppercase; font-size:12px; margin-bottom:14px; }
+    h1{ margin:0 0 14px; font-size: clamp(32px, 5vw, 64px); font-family:Orbitron, Inter, sans-serif; letter-spacing:.02em; line-height:1.05; }
+    .lead{ color:var(--muted); font-size:18px; line-height:1.6; margin:0 0 26px; }
 
     .hero-actions{ display:flex; gap:12px; flex-wrap:wrap; }
     .btn{
-      display:inline-flex; align-items:center; gap:10px;
-      padding:14px 18px; border-radius:14px; border:1px solid var(--border);
-      background:#141422; color:var(--text); text-decoration:none; font-weight:800; letter-spacing:.02em;
-      transition:var(--trans);
+      display:inline-flex; align-items:center; gap:10px; padding:14px 18px; border-radius:14px;
+      border:1px solid var(--border); background:#ffffff; color:var(--text); text-decoration:none; font-weight:900; letter-spacing:.02em; transition:var(--trans);
     }
     .btn.primary{
-      background:linear-gradient(180deg, var(--neon), #9bff00);
-      color:#0a0a0f; border-color:transparent; box-shadow:0 10px 30px rgba(198,255,0,.35);
+      background:linear-gradient(180deg, var(--primary), #10a95b);
+      color:#ffffff; border-color:transparent; box-shadow:0 10px 30px rgba(21,189,104,.35);
     }
-    .btn:hover{ transform: translateY(-1.5px); box-shadow:0 10px 24px rgba(0,0,0,.35); }
+    .btn:hover{ transform: translateY(-1.5px); box-shadow:var(--shadow-strong); }
 
-    /* Metrics */
-    .metrics{
-      display:grid; grid-template-columns: repeat(3,1fr); gap:18px; margin-top:30px;
-    }
-    .metric{
-      border:1px solid var(--border); border-radius:16px; padding:20px; background:#0f0f19;
-    }
+    /* Métricas */
+    .metrics{ display:grid; grid-template-columns: repeat(3,1fr); gap:18px; margin-top:30px; }
+    .metric{ border:1px solid var(--border); border-radius:16px; padding:20px; background:#fff; box-shadow:var(--shadow); }
     .metric .num{
-      font-size: clamp(38px, 5vw, 64px);
-      font-weight:900; font-family:Orbitron, Inter, sans-serif; letter-spacing:.02em; line-height:1;
-      color:var(--neon);
-      text-shadow:0 0 24px rgba(198,255,0,.25);
+      font-size: clamp(38px, 5vw, 64px); font-weight:900; font-family:Orbitron, Inter, sans-serif;
+      letter-spacing:.02em; line-height:1; color:var(--primary); text-shadow:0 0 24px rgba(21,189,104,.15);
     }
     .metric p{ margin:6px 0 0; color:var(--muted); }
 
-    /* Catalog */
+    /* Secciones */
     .section{ padding:70px 0; }
-    .section h2{
-      font-family:Orbitron, Inter, sans-serif;
-      font-size: clamp(26px, 3vw, 40px);
-      margin:0 0 14px;
+    .section h2{ font-family:Orbitron, Inter, sans-serif; font-size: clamp(26px, 3vw, 40px); margin:0 0 14px; position:relative; }
+    .section h2::after{
+      content:""; display:block; height:2px; width:96px; margin-top:8px;
+      background:linear-gradient(90deg, var(--primary), transparent);
     }
     .section .sub{ color:var(--muted); margin:0 0 26px; }
 
-    .grid{
-      display:grid; grid-template-columns: repeat(4,1fr); gap:16px;
-    }
+    /* Catálogo */
+    .grid{ display:grid; grid-template-columns: repeat(4,1fr); gap:16px; }
     @media (max-width:1000px){ .grid{ grid-template-columns: repeat(2,1fr);} .hero-wrap{ grid-template-columns: 1fr; } }
     @media (max-width:560px){ .grid{ grid-template-columns:1fr; } .metrics{ grid-template-columns:1fr; } }
 
     .card{
-      position:relative; overflow:hidden; border-radius:18px;
-      border:1px solid var(--border); background:linear-gradient(180deg, #11111a, #0d0d16);
+      position:relative; overflow:hidden; border-radius:18px; border:1px solid var(--border);
+      background:linear-gradient(180deg, #ffffff, #fbfcfd);
       transition: transform var(--trans), box-shadow var(--trans), border-color var(--trans);
-      transform-style:preserve-3d;
+      box-shadow:var(--shadow); transform-style:preserve-3d;
     }
-    .card:hover{
-      transform: translateY(-6px) rotateX(2deg) rotateY(-2deg);
-      border-color: rgba(198,255,0,.4);
-      box-shadow: 0 16px 40px rgba(0,0,0,.5), 0 0 32px rgba(198,255,0,.12);
-    }
+    .card:hover{ transform: translateY(-6px) rotateX(2deg) rotateY(-2deg); border-color: rgba(21,189,104,.35); box-shadow: var(--shadow-strong); }
     .card-media{
       aspect-ratio: 16/10;
       background:
-        radial-gradient(120px 80px at 80% 20%, rgba(198,255,0,.12), transparent 60%),
-        linear-gradient(135deg, #10101a, #0d0d15);
+        radial-gradient(120px 80px at 80% 20%, rgba(21,189,104,.12), transparent 60%),
+        linear-gradient(135deg, #f5f7fa, #ffffff);
       display:grid; place-items:center; color:var(--muted); font-weight:800; letter-spacing:.12em; text-transform:uppercase;
     }
-    .card h3{
-      margin:14px 14px 6px; font-size:20px; font-weight:800;
-      display:flex; align-items:center; justify-content:space-between; gap:8px;
-    }
-    .tag{
-      font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:#111; background:var(--neon); padding:6px 10px; border-radius:999px;
-    }
+    .card h3{ margin:14px 14px 6px; font-size:20px; font-weight:800; display:flex; align-items:center; justify-content:space-between; gap:8px; }
+    .tag{ font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:#fff; background:var(--primary); padding:6px 10px; border-radius:999px; }
     .rating{ margin:0 14px 16px; color:var(--muted); font-size:14px; }
     .rating .strong{ color:var(--text); font-weight:800; }
 
     /* Timeline */
-    .timeline{
-      position:relative; padding-top:20px;
-    }
-    .timeline svg{
-      position:absolute; inset:0; pointer-events:none; opacity:.35;
-    }
-    .steps{
-      display:grid; grid-template-columns: repeat(4,1fr); gap:16px;
-    }
+    .timeline{ position:relative; padding-top:20px; }
+    .timeline svg{ position:absolute; inset:0; pointer-events:none; opacity:.6; }
+    .steps{ display:grid; grid-template-columns: repeat(4,1fr); gap:16px; }
     @media (max-width:900px){ .steps{ grid-template-columns: 1fr 1fr; } }
     @media (max-width:560px){ .steps{ grid-template-columns: 1fr; } }
-
     .step{
-      background:#0f0f19; border:1px solid var(--border); border-radius:16px; padding:18px 16px; position:relative;
+      background:#ffffff; border:1px solid var(--border); border-radius:16px; padding:18px 16px; position:relative; box-shadow:var(--shadow);
     }
     .step h4{
-      margin:0 0 8px; width:38px; height:38px; display:grid; place-items:center; border-radius:12px; background:var(--neon); color:#111; font-family:Orbitron; 
-      box-shadow: var(--shadow-neon);
+      margin:0 0 8px; width:38px; height:38px; display:grid; place-items:center; border-radius:12px;
+      background:var(--primary); color:#fff; font-family:Orbitron;
+      box-shadow: 0 0 0 4px rgba(21,189,104,.1);
     }
     .step p{ margin:0; color:var(--muted); }
 
-    /* Form */
-    .form{
-      display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-top:10px;
-      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+    /* Formulario */
+    .form{ display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-top:10px;
+      background:linear-gradient(180deg, rgba(21,189,104,.05), rgba(21,189,104,.02));
       padding:20px; border-radius:18px; border:1px solid var(--border);
     }
     @media (max-width:800px){ .form{ grid-template-columns:1fr; } }
-    .field{
-      position:relative;
-    }
+    .field{ position:relative; }
     .field input, .field select, .field textarea{
-      width:100%; background:#0e0e17; color:var(--text); border:1px solid var(--border); border-radius:12px;
-      padding:18px 14px 14px; outline:none; transition:var(--trans); font-size:16px;
+      width:100%; background:#ffffff; color:var(--text); border:1px solid var(--border);
+      border-radius:12px; padding:18px 14px 14px; outline:none; transition:var(--trans); font-size:16px;
     }
     .field textarea{ min-height:120px; resize:vertical; }
     .field label{
-      position:absolute; left:12px; top:12px; padding:0 6px; color:var(--muted); background:#0e0e17;
+      position:absolute; left:12px; top:12px; padding:0 6px; color:var(--muted); background:#ffffff;
       transform-origin:left top; transition:var(--trans); pointer-events:none;
     }
-    .field:focus-within label, .field.has-value label{
-      transform: translateY(-12px) scale(.86);
-      color:var(--neon);
-    }
+    .field:focus-within label, .field.has-value label{ transform: translateY(-12px) scale(.86); color:var(--primary); }
     .field:focus-within input, .field:focus-within select, .field:focus-within textarea{
-      border-color: rgba(198,255,0,.5); box-shadow: var(--shadow-neon);
+      border-color: rgba(21,189,104,.6);
+      box-shadow: 0 0 0 4px rgba(21,189,104,.12);
     }
-    .form-actions{
-      grid-column:1/-1; display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap;
-    }
+    .form-actions{ grid-column:1/-1; display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap; }
 
     .toast{
-      position:fixed; right:20px; bottom:20px; z-index:20; padding:14px 16px; border-radius:14px; font-weight:700;
-      background:#0f1923; color:var(--text); border:1px solid var(--border); box-shadow:0 10px 30px rgba(0,0,0,.5);
-      display:none;
+      position:fixed; right:20px; bottom:20px; z-index:20; padding:14px 16px; border-radius:14px; font-weight:800;
+      background:#ffffff; color:var(--text); border:1px solid var(--border); box-shadow:var(--shadow-strong); display:none;
     }
-    .toast.ok{ border-color: rgba(0,212,166,.5); box-shadow:0 0 24px rgba(0,212,166,.3); }
-    .toast.err{ border-color: rgba(255,85,119,.5); box-shadow:0 0 24px rgba(255,85,119,.25); }
+    .toast.ok{ border-color: rgba(21,189,104,.45); box-shadow:0 0 24px rgba(21,189,104,.18); }
+    .toast.err{ border-color: rgba(255,85,119,.4); box-shadow:0 0 24px rgba(255,85,119,.15); }
 
     /* Reveal base */
     .reveal{ opacity:0; transform: translateY(14px) scale(.98); }
     .reveal.show{ opacity:1; transform:none; transition: 700ms var(--trans); }
 
+    /* Header responsive */
+    .nav-desktop{display:flex; align-items:center; gap:0}
+    .burger{display:none}
+
+    /* Mobile */
+    @media (max-width: 900px){
+      .nav-desktop{display:none}
+      .burger{
+        display:inline-grid; place-items:center; width:44px; height:44px; border:1px solid var(--border);
+        background:#ffffff; border-radius:12px; cursor:pointer; transition:var(--trans)
+      }
+      .burger:hover{ box-shadow:var(--shadow); border-color:rgba(21,189,104,.45) }
+      .burger-line, .burger-line::before, .burger-line::after{
+        content:""; display:block; width:20px; height:2px; background:var(--text); border-radius:2px; position:relative; transition:var(--trans)
+      }
+      .burger-line::before{position:absolute; top:-6px}
+      .burger-line::after{position:absolute; top:6px}
+      .burger[aria-expanded="true"] .burger-line{background:transparent}
+      .burger[aria-expanded="true"] .burger-line::before{top:0; transform:rotate(45deg); background:var(--primary)}
+      .burger[aria-expanded="true"] .burger-line::after{top:0; transform:rotate(-45deg); background:var(--primary)}
+
+      /* Drawer */
+      .mobile-nav{
+        position:fixed; inset:0 0 0 auto; width:min(86%, 360px);
+        background:linear-gradient(180deg, #ffffff, #f7faf9);
+        border-left:1px solid var(--border);
+        transform:translateX(100%); transition:transform .35s ease; z-index:19; display:block;
+      }
+      .mobile-nav.open{ transform:translateX(0) }
+      .mobile-nav__inner{ padding:18px; display:flex; flex-direction:column; gap:10px }
+      .mobile-link{
+        display:block; padding:14px 12px; border:1px solid var(--border); border-radius:14px;
+        color:var(--text); text-decoration:none; font-weight:800; background:#ffffff; transition:var(--trans)
+      }
+      .mobile-link:hover{ border-color:rgba(21,189,104,.45); box-shadow:var(--shadow) }
+      .mobile-cta{ text-align:center }
+
+      .mobile-backdrop{
+        position:fixed; inset:0; background:rgba(0,0,0,.35); backdrop-filter:blur(2px); z-index:18; opacity:0; transition:opacity .35s ease; display:block;
+      }
+      .mobile-backdrop.show{ opacity:1 }
+      body.lock{ overflow:hidden }
+    }
 
 
 
-    /* Accesibilidad visual oculta */
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    /* --- Media gallery dentro de las cards --- */
+.media-wrap{
+  position:relative; margin:12px; border-radius:16px; overflow:hidden;
+  border:1px solid var(--border); background:#fff;
+  box-shadow: var(--shadow);
+}
+/* capa degradiente por detrás */
+.media-wrap::before{
+  content:""; position:absolute; inset:-30% -30%;
+  background:
+    radial-gradient(600px 300px at 110% 0%, rgba(21,189,104,.12), transparent 60%),
+    radial-gradient(600px 300px at 0% 110%, rgba(139,228,182,.12), transparent 60%),
+    linear-gradient(180deg, #ffffff, #fbfcfd);
+  z-index:0; filter: blur(8px);
+}
+.media-grid{
+  position:relative; z-index:1;
+  display:grid; grid-template-columns: repeat(5,1fr); gap:8px; padding:8px;
+}
+.media-item{
+  aspect-ratio: 16/10; border-radius:12px; overflow:hidden;
+  background:linear-gradient(135deg,#f5f7fa,#ffffff);
+  display:block; border:1px solid var(--border);
+  transition: transform var(--trans), box-shadow var(--trans), border-color var(--trans);
+}
+.media-item:hover{ transform:translateY(-2px); box-shadow:var(--shadow-strong); border-color: rgba(21,189,104,.35); }
+.media-item img, .media-item video{
+  width:100%; height:100%; object-fit:cover; display:block;
+}
 
-/* Desktop por defecto */
-.nav-desktop{display:flex; align-items:center; gap:0}
-.burger{display:none}
+/* El 5º ítem es el vídeo: ocupa 2 columnas en desktop */
+.media-item.video{ grid-column: span 2; position:relative; }
+.media-item.video::after{
+  content:"▶"; position:absolute; inset:auto auto 8px 8px;
+  font-size:14px; font-weight:800; color:#fff;
+  background:rgba(17,17,17,.55); padding:6px 8px; border-radius:999px;
+  letter-spacing:.08em;
+}
 
-/* Mobile: ocultar nav de escritorio y mostrar hamburguesa */
-@media (max-width: 900px){
-  .nav-desktop{display:none}
-  .burger{
-    display:inline-grid; place-items:center; width:44px; height:44px;
-    border:1px solid var(--border); background:#11131a; border-radius:12px; cursor:pointer;
-    transition:var(--trans)
-  }
-  .burger:hover{box-shadow:var(--shadow-neon); border-color:rgba(198,255,0,.45)}
-  .burger-line, .burger-line::before, .burger-line::after{
-    content:""; display:block; width:20px; height:2px; background:var(--text); border-radius:2px; position:relative; transition:var(--trans)
-  }
-  .burger-line::before{position:absolute; top:-6px}
-  .burger-line::after{position:absolute; top:6px}
-  .burger[aria-expanded="true"] .burger-line{background:transparent}
-  .burger[aria-expanded="true"] .burger-line::before{top:0; transform:rotate(45deg); background:var(--neon)}
-  .burger[aria-expanded="true"] .burger-line::after{top:0; transform:rotate(-45deg); background:var(--neon)}
+/* Responsivo */
+@media (max-width:1000px){
+  .media-grid{ grid-template-columns: repeat(3,1fr); }
+  .media-item.video{ grid-column: span 3; }
+}
+@media (max-width:560px){
+  .media-grid{ grid-template-columns: 1fr 1fr; }
+  .media-item.video{ grid-column: span 2; }
+}
 
-  /* Panel móvil tipo drawer */
-  .mobile-nav{
-    position:fixed; inset:0 0 0 auto; width:min(86%, 360px);
-    background:linear-gradient(180deg, #0e0f17, #0b0c14);
-    border-left:1px solid var(--border);
-    transform:translateX(100%); transition:transform .35s ease;
-    z-index:19; display:block;
-  }
-  .mobile-nav.open{ transform:translateX(0) }
-  .mobile-nav__inner{ padding:18px; display:flex; flex-direction:column; gap:10px }
-  .mobile-link{
-    display:block; padding:14px 12px; border:1px solid var(--border); border-radius:14px;
-    color:var(--text); text-decoration:none; font-weight:700; background:#10121a; transition:var(--trans)
-  }
-  .mobile-link:hover{ border-color:rgba(198,255,0,.45); box-shadow:var(--shadow-neon) }
-  .mobile-cta{ text-align:center }
 
-  /* Backdrop */
-  .mobile-backdrop{
-    position:fixed; inset:0; background:rgba(0,0,0,.5); backdrop-filter:blur(2px);
-    z-index:18; opacity:0; transition:opacity .35s ease; display:block;
-  }
-  .mobile-backdrop.show{ opacity:1 }
-  body.lock{ overflow:hidden }
+
+/* Botones/íconos de PDF dentro de la galería */
+.media-item.doc{
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  font-weight:900; letter-spacing:.06em; text-transform:uppercase; font-size:12px;
+  background:linear-gradient(180deg,#ffffff,#fbfcfd);
+  cursor:pointer; text-decoration:none; color:var(--text);
+}
+.media-item.doc:hover{ border-color: rgba(21,189,104,.45); box-shadow: var(--shadow-strong); transform: translateY(-2px); }
+.media-item.doc svg{ width:22px; height:22px; flex:0 0 auto; }
+
+/* Etiqueta pequeña "PDF" */
+.badge{
+  font-size:10px; font-weight:800; letter-spacing:.08em; color:#fff;
+  background:var(--primary); padding:4px 8px; border-radius:999px;
 }
 
   </style>
 </head>
-<body>
 
-  <header>
+<body>
+<header>
   <div class="container nav">
-    <a href="#" class="logo">
-      <div class="logo-mark"></div>
-      <div class="logo-text">On Medical Group</div>
-    </a>
+      <img src="https://i.postimg.cc/fWr1wByT/logo-on-medical.png" style="width: 150px;">
+
 
     <!-- Menú de escritorio -->
     <nav class="nav-desktop">
@@ -373,311 +362,545 @@
       <a class="btn primary mobile-cta" href="#contacto">Solicitar demo</a>
     </div>
   </div>
-
   <!-- Fondo oscurecido -->
   <div class="mobile-backdrop" id="mobile-backdrop" hidden></div>
 </header>
 
-
-  <main>
-
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero-grid">
-        <!-- Animated diagonal wires -->
-        <svg viewBox="0 0 1200 500" preserveAspectRatio="none">
-          <defs>
-            <linearGradient id="wire" x1="0" x2="1">
-              <stop offset="0" stop-color="#c6ff00" stop-opacity=".0"/>
-              <stop offset=".5" stop-color="#c6ff00" stop-opacity=".45"/>
-              <stop offset="1" stop-color="#c6ff00" stop-opacity=".0"/>
-            </linearGradient>
-          </defs>
-          <g stroke="url(#wire)" stroke-width="1.5">
-            <path d="M0,420 L1200,120">
-              <animate attributeName="stroke-opacity" values=".1;.5;.1" dur="5s" repeatCount="indefinite"/>
-            </path>
-            <path d="M0,480 L1200,180">
-              <animate attributeName="stroke-opacity" values=".05;.45;.05" dur="6s" repeatCount="indefinite"/>
-            </path>
-            <path d="M0,360 L1200,60">
-              <animate attributeName="stroke-opacity" values=".05;.4;.05" dur="7s" repeatCount="indefinite"/>
-            </path>
-          </g>
-        </svg>
-      </div>
-      <div class="container hero-wrap">
-        <div class="hero-copy">
-          <div class="kicker">Tecnología estética de próxima generación</div>
-          <h1>¿Tienes un Centro Médico Estético?</h1>
-          <p class="lead">
-            Invertir en aparatología es un reto. <strong>On Medical</strong> lo convierte en una ventaja competitiva con
-            soluciones <em>plug &amp; play</em>, formación a tu equipo y soporte 360º.
-          </p>
-          <div class="hero-actions">
-            <a class="btn primary" href="#catalogo">Ver catálogo</a>
-            <a class="btn" href="#contacto">Hablar con un asesor</a>
-          </div>
-
-          <div class="metrics">
-            <div class="metric reveal">
-              <div class="num" data-count="5">0</div>
-              <p>Años adelantados al futuro</p>
-            </div>
-            <div class="metric reveal">
-              <div class="num" data-count="10" data-suffix="+">0</div>
-              <p>Sectores donde operamos</p>
-            </div>
-            <div class="metric reveal">
-              <div class="num" data-count="100" data-suffix="%">0</div>
-              <p>Planes 100% personalizables</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero-card reveal" id="card-tilt">
-          <h3 style="margin:0 0 8px">Suite ON</h3>
-          <p class="lead" style="margin:0 0 14px">
-            Aparatología vanguardista con metodología certificada para tu personal.
-          </p>
-          <ul style="margin:0; padding-left:18px; color:var(--muted); line-height:1.8">
-            <li>Instalación y entrega en 24h*</li>
-            <li>Formación presencial/online</li>
-            <li>Mantenimiento y soporte continuo</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- CATALOGO -->
-    <section id="catalogo" class="section container">
-      <h2 class="reveal">Adelántate 5 años al Futuro de la Estética</h2>
-      <p class="sub reveal">Catálogo destacado y centros que ya confían en nosotros este año.</p>
-
-      <div class="grid">
-        <!-- Card -->
-        <article class="card reveal">
-          <div class="card-media">OnFace</div>
-          <h3>OnFace <span class="tag">Facial</span></h3>
-          <p class="rating"><span class="strong" data-count="34">0</span> centros lo eligieron este año.</p>
-        </article>
-
-        <article class="card reveal">
-          <div class="card-media">On Body</div>
-          <h3>On Body <span class="tag">Corporal</span></h3>
-          <p class="rating"><span class="strong" data-count="25">0</span> centros lo eligieron este año.</p>
-        </article>
-
-        <article class="card reveal">
-          <div class="card-media">On Exe</div>
-          <h3>On Exe <span class="tag">Performance</span></h3>
-          <p class="rating"><span class="strong" data-count="56">0</span> centros lo eligieron este año.</p>
-        </article>
-
-        <article class="card reveal">
-          <div class="card-media">On Laser</div>
-          <h3>On Laser <span class="tag">Láser</span></h3>
-          <p class="rating"><span class="strong" data-count="82">0</span> centros lo eligieron este año.</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- TIMELINE -->
-    <section id="pasos" class="section container timeline">
-      <h2 class="reveal">Así trabajamos</h2>
-      <p class="sub reveal">Cuatro pasos, cero fricción.</p>
-
-      <!-- Animated line -->
-      <svg viewBox="0 0 1200 140">
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <!-- Líneas SVG elegantes -->
+    <div class="hero-grid">
+      <svg viewBox="0 0 1200 500" preserveAspectRatio="none">
         <defs>
-          <linearGradient id="stroke" x1="0" x2="1">
-            <stop offset="0" stop-color="#c6ff00" stop-opacity=".0"/>
-            <stop offset=".5" stop-color="#c6ff00" stop-opacity=".8"/>
-            <stop offset="1" stop-color="#6bffb8" stop-opacity=".0"/>
+          <linearGradient id="wire" x1="0" x2="1">
+            <stop offset="0" stop-color="#15bd68" stop-opacity=".00"/>
+            <stop offset=".5" stop-color="#15bd68" stop-opacity=".55"/>
+            <stop offset="1" stop-color="#15bd68" stop-opacity=".00"/>
           </linearGradient>
         </defs>
-        <path d="M0,100 C250,40 350,160 600,100 850,40 950,160 1200,100" fill="none" stroke="url(#stroke)" stroke-width="2">
-          <animate attributeName="stroke-dasharray" values="0,1400; 1400,0" dur="6s" repeatCount="indefinite"/>
-        </path>
+        <g stroke="url(#wire)" stroke-width="1.5">
+          <path d="M0,420 L1200,120">
+            <animate attributeName="stroke-opacity" values=".08;.45;.08" dur="5s" repeatCount="indefinite"/>
+          </path>
+          <path d="M0,480 L1200,180">
+            <animate attributeName="stroke-opacity" values=".05;.35;.05" dur="6s" repeatCount="indefinite"/>
+          </path>
+          <path d="M0,360 L1200,60">
+            <animate attributeName="stroke-opacity" values=".05;.3;.05" dur="7s" repeatCount="indefinite"/>
+          </path>
+        </g>
       </svg>
+    </div>
 
-      <div class="steps">
-        <div class="step reveal">
-          <h4>1</h4>
-          <p>Nos conocemos por llamada o videollamada.</p>
+    <div class="container hero-wrap">
+      <div class="hero-copy">
+        <div class="kicker">Tecnología estética de próxima generación</div>
+        <h1>¿Tienes una clínica médico estética o centro estético?</h1>
+        <p class="lead">
+          La tecnología láser que rentabiliza tu centro desde el primer día.
+          <strong>Última generación en aparatología estética.</strong> Empieza a trabajar hoy y paga en 3 meses. Formación incluida.
+          Tus mejores resultados con la innovación más avanzada del mercado.
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#catalogo">Ver catálogo</a>
+          <a class="btn" href="#contacto">Hablar con un asesor</a>
         </div>
-        <div class="step reveal">
-          <h4>2</h4>
-          <p>Presupuesto personalizable según la aparatología que te interesa.</p>
-        </div>
-        <div class="step reveal">
-          <h4>3</h4>
-          <p>Opciones de financiación claras, contrato transparente.</p>
-        </div>
-        <div class="step reveal">
-          <h4>4</h4>
-          <p>Primer pago y envío en 24h con todos los complementos.</p>
+
+        <div class="metrics">
+          <div class="metric reveal">
+            <div class="num" data-count="5">0</div>
+            <p>Años adelantados al futuro</p>
+          </div>
+          <div class="metric reveal">
+            <div class="num" data-count="10" data-suffix="+">0</div>
+            <p>Sectores donde operamos</p>
+          </div>
+          <div class="metric reveal">
+            <div class="num" data-count="100" data-suffix="%">0</div>
+            <p>Planes 100% personalizables</p>
+          </div>
         </div>
       </div>
-    </section>
 
-    <!-- FORM -->
-    <section id="contacto" class="section container">
-      <h2 class="reveal">Hablemos</h2>
-      <p class="sub reveal">Déjanos tus datos y te contactamos hoy.</p>
+      <div class="hero-card reveal" id="card-tilt" style="background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);position:relative;overflow:hidden;">
+        <h3 style="margin:0 0 8px">Suite ON</h3>
+        <p class="lead" style="margin:0 0 14px;color:var(--muted)">
+          Aparatología vanguardista con metodología certificada para tu personal.
+        </p>
+        <ul style="margin:0; padding-left:18px; color:var(--muted); line-height:1.8">
+          <li>Instalación y entrega en 24h*</li>
+          <li>Formación presencial/online</li>
+          <li>Mantenimiento y soporte continuo</li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
-      <form class="form" id="contact-form" novalidate>
-        <div class="field"><label for="nombre">Nombre</label><input id="nombre" name="nombre" required /></div>
-        <div class="field"><label for="telefono">Teléfono</label><input id="telefono" name="telefono" type="tel" required /></div>
-        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" required /></div>
-        <div class="field"><label for="provincia">Provincia</label><input id="provincia" name="provincia" /></div>
-        <div class="field"><label for="centro">Nombre de tu Centro</label><input id="centro" name="centro" /></div>
-        <div class="field"><label for="aparatologia">Aparatología</label>
-          <select id="aparatologia" name="aparatologia">
-            <option>On Body</option><option>On Face</option><option>On Exe</option><option>On Derma</option>
-          </select>
-        </div>
-        <div class="field" style="grid-column:1/-1">
-          <label for="obs">Observaciones</label>
-          <textarea id="obs" name="observaciones" placeholder="Cuéntanos qué necesitas..."></textarea>
-        </div>
-        <div class="form-actions">
-          <button class="btn" type="reset">Limpiar</button>
-          <button class="btn primary" type="submit">Solicitar presupuesto</button>
-        </div>
-      </form>
-    </section>
+  <!-- CATALOGO -->
+  <section id="catalogo" class="section container">
+    <h2 class="reveal">Adelántate 5 años al Futuro de la Estética</h2>
+    <p class="sub reveal">Catálogo destacado y centros que ya confían en nosotros este año.</p>
 
-  </main>
+    <div class="grid">
+      <article class="card reveal">
+        <div class="card-media">OnFace</div>
+        <h3>OnFace <span class="tag">Facial</span></h3>
+        <p class="rating"><span class="strong" data-count="34">0</span> centros lo eligieron este año.</p>
+      </article>
 
-  <div class="toast" id="toast"></div>
+      <article class="card reveal">
+        <div class="card-media">On Body</div>
+        <h3>On Body <span class="tag">Corporal</span></h3>
+        <p class="rating"><span class="strong" data-count="25">0</span> centros lo eligieron este año.</p>
+      </article>
 
-  <script>
-    // Floating labels state
-    document.querySelectorAll('.field input, .field textarea, .field select').forEach(el=>{
-      const set = ()=> el.parentElement.classList.toggle('has-value', !!el.value);
-      el.addEventListener('input', set); set();
-    });
+      <article class="card reveal">
+        <div class="card-media">On Exe</div>
+        <h3>On Exe <span class="tag">Performance</span></h3>
+        <p class="rating"><span class="strong" data-count="56">0</span> centros lo eligieron este año.</p>
+      </article>
 
-    // Intersection reveal + counters
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(entry=>{
-        if(entry.isIntersecting){
-          entry.target.classList.add('show');
-          // Counters
-          const num = entry.target.querySelector?.('.num');
-          if(num && !num.dataset.done){
-            animateCount(num, +num.dataset.count, num.dataset.suffix||"");
-            num.dataset.done = "1";
+      <article class="card reveal">
+        <div class="card-media">On Laser</div>
+        <h3>On Laser <span class="tag">Láser</span></h3>
+        <p class="rating"><span class="strong" data-count="82">0</span> centros lo eligieron este año.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- PRODUCTOS / CONTENIDO -->
+  <section class="section container">
+    <h2>On Face + On Body — Neuroestimulación facial y corporal</h2>
+    <p class="sub">El futuro del lifting y la remodelación corporal. Equipo 2 en 1. Tecnología avanzada. Resultados visibles. Sin dolor.</p>
+    <p>
+      El pack <strong>On Face + On Body</strong> combina dos tecnologías de neuroestimulación de última generación desarrolladas por
+      <strong>On Medical Group</strong>, diseñadas para trabajar de forma simultánea la tonificación muscular facial y corporal, logrando
+      un lifting natural, una piel más firme y una definición visible desde las primeras sesiones.
+      Inspirados en la medicina estética profesional, nuestros dispositivos utilizan impulsos eléctricos precisos que actúan directamente
+      sobre las fibras musculares, estimulando el rejuvenecimiento sin necesidad de agujas, calor ni procedimientos invasivos.
+      <strong>Más de 150 clínicas y centros de estética en España</strong> utilizan este método.
+    </p>
+  </section>
+  <div class="media-wrap">
+  <div class="media-grid">
+    <!-- 4 fotos -->
+    <a class="media-item" href="" aria-label="Foto 1 OnFace">
+      <img src="https://imanagers.es/presovital/ONFACE&ONBODY/onface1.jpg" alt="Tratamiento facial 1">
+    </a>
+    <a class="media-item" href="" aria-label="Foto 2 OnFace">
+      <img src="https://imanagers.es/presovital/ONFACE&ONBODY/onface2.jpg" alt="Tratamiento facial 2">
+    </a>
+    <a class="media-item" href="" aria-label="Foto 4 OnFace">
+      <img src="https://imanagers.es/presovital/ONFACE&ONBODY/onface4.jpg" alt="Antes y después OnFace">
+    </a>
+     <a class="media-item" href="" aria-label="Foto 4 OnFace">
+      <img src="https://imanagers.es/presovital/ONFACE&ONBODY/onface5.jpg" alt="Antes y después OnFace">
+    </a>
+    <a class="media-item" href="" aria-label="Foto 4 OnFace">
+      <img src="https://imanagers.es/presovital/ONFACE&ONBODY/onbody.jpg" alt="Antes y después OnFace">
+    </a>
+
+    <!-- 1 vídeo -->
+    <div class="media-item video" aria-label="Vídeo OnFace">
+      <video src="https://imanagers.es/presovital/LUMINAGE/video.mp4"
+             playsinline muted loop autoplay></video>
+    </div>
+    <!-- DESCARGAS PDF -->
+<a class="media-item doc" href="/docs/onface-dossier.pdf" download type="application/pdf" aria-label="Descargar Dossier OnFace (PDF)">
+  <!-- Ícono PDF en SVG -->
+  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path fill="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6zM13 9V3.5L18.5 9H13z"/>
+    <path fill="currentColor" d="M7.5 14.5h1.75c.83 0 1.5.67 1.5 1.5v.25c0 .83-.67 1.5-1.5 1.5H7.5v-3.25zm1.5 2c.41 0 .75-.34.75-.75v-.25c0-.41-.34-.75-.75-.75H8v1.75h1zM12.25 14.5H14c.97 0 1.75.78 1.75 1.75v.5c0 .97-.78 1.75-1.75 1.75h-1.75v-4zm1.5 3c.41 0 .75-.34.75-.75v-.5c0-.41-.34-.75-.75-.75h-.75v2h.75zM17 14.5h2v1h-1v.5h1v1h-1V18h-1v-3.5z"/>
+  </svg>
+  Dossier
+  <span class="badge">PDF</span>
+</a>
+
+<a class="media-item doc" href="/docs/onface-tarifas.pdf" download type="application/pdf" aria-label="Descargar Tarifas/Financiación OnFace (PDF)">
+  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path fill="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6zM13 9V3.5L18.5 9H13z"/>
+    <path fill="currentColor" d="M7.5 14.5h1.75c.83 0 1.5.67 1.5 1.5v.25c0 .83-.67 1.5-1.5 1.5H7.5v-3.25zm1.5 2c.41 0 .75-.34.75-.75v-.25c0-.41-.34-.75-.75-.75H8v1.75h1zM12.25 14.5H14c.97 0 1.75.78 1.75 1.75v.5c0 .97-.78 1.75-1.75 1.75h-1.75v-4zm1.5 3c.41 0 .75-.34.75-.75v-.5c0-.41-.34-.75-.75-.75h-.75v2h.75zM17 14.5h2v1h-1v.5h1v1h-1V18h-1v-3.5z"/>
+  </svg>
+  Dossier
+  <span class="badge">PDF</span>
+</a>
+
+  </div>
+</div>
+
+
+  <section class="section container">
+    <h2>Tecnología Láser Luminage</h2>
+    <p class="sub">El nuevo estándar en rejuvenecimiento fraccional sin ablación. Eficacia médica. Resultados visibles. Sin tiempo de recuperación.</p>
+    <p>
+      <strong>Luminage</strong> es el láser fraccionado no ablativo de 1470 nm desarrollado por On Medical Group para revolucionar los tratamientos
+      de rejuvenecimiento facial y corporal. Su tecnología actúa desde el interior de la dermis, estimulando la producción de colágeno y elastina
+      sin dañar la superficie de la piel, lo que permite obtener resultados visibles sin dolor, sin marcas y sin baja social.
+      Se puede usar incluso en época de verano. Se ha convertido en el referente actual, la luz de una nueva juventud para tu centro o clínica.
+    </p>
+  </section>
+
+  <div class="media-wrap">
+  <div class="media-grid">
+    <!-- 4 fotos -->
+    <a class="media-item" href="#" aria-label="Foto 1 OnFace">
+      <img src="https://imanagers.es/presovital/LUMINAGE/1.jpg" alt="Tratamiento facial 1">
+    </a>
+    <a class="media-item" href="#" aria-label="Foto 2 OnFace">
+      <img src="https://imanagers.es/presovital/LUMINAGE/2.jpg" alt="Tratamiento facial 2">
+    </a>
+    <a class="media-item" href="#" aria-label="Foto 3 OnFace">
+      <img src="https://imanagers.es/presovital/LUMINAGE/3.jpg" alt="Equipo OnFace">
+    </a>
+    <a class="media-item" href="#" aria-label="Foto 4 OnFace">
+      <img src="https://imanagers.es/presovital/LUMINAGE/4.jpg" alt="Antes y después OnFace">
+    </a>
+
+    <!-- 1 vídeo -->
+    <div class="media-item video" aria-label="Vídeo OnFace">
+      <video src="https://imanagers.es/presovital/LUMINAGE/luminage.mp4"
+             playsinline muted loop autoplay></video>
+    </div>
+
+     <!-- DESCARGAS PDF -->
+<a class="media-item doc" href="/docs/onface-dossier.pdf" download type="application/pdf" aria-label="Descargar Dossier OnFace (PDF)">
+  <!-- Ícono PDF en SVG -->
+  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path fill="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6zM13 9V3.5L18.5 9H13z"/>
+    <path fill="currentColor" d="M7.5 14.5h1.75c.83 0 1.5.67 1.5 1.5v.25c0 .83-.67 1.5-1.5 1.5H7.5v-3.25zm1.5 2c.41 0 .75-.34.75-.75v-.25c0-.41-.34-.75-.75-.75H8v1.75h1zM12.25 14.5H14c.97 0 1.75.78 1.75 1.75v.5c0 .97-.78 1.75-1.75 1.75h-1.75v-4zm1.5 3c.41 0 .75-.34.75-.75v-.5c0-.41-.34-.75-.75-.75h-.75v2h.75zM17 14.5h2v1h-1v.5h1v1h-1V18h-1v-3.5z"/>
+  </svg>
+  Dossier
+  <span class="badge">PDF</span>
+</a>
+
+<a class="media-item doc" href="/docs/onface-tarifas.pdf" download type="application/pdf" aria-label="Descargar Tarifas/Financiación OnFace (PDF)">
+  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path fill="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6zM13 9V3.5L18.5 9H13z"/>
+    <path fill="currentColor" d="M7.5 14.5h1.75c.83 0 1.5.67 1.5 1.5v.25c0 .83-.67 1.5-1.5 1.5H7.5v-3.25zm1.5 2c.41 0 .75-.34.75-.75v-.25c0-.41-.34-.75-.75-.75H8v1.75h1zM12.25 14.5H14c.97 0 1.75.78 1.75 1.75v.5c0 .97-.78 1.75-1.75 1.75h-1.75v-4zm1.5 3c.41 0 .75-.34.75-.75v-.5c0-.41-.34-.75-.75-.75h-.75v2h.75zM17 14.5h2v1h-1v.5h1v1h-1V18h-1v-3.5z"/>
+  </svg>
+  Dossier
+  <span class="badge">PDF</span>
+</a>
+
+  </div>
+</div>
+
+
+  <section class="section container">
+    <h2>On Derma</h2>
+    <p class="sub">El láser más versátil del mercado. Precisión, potencia y resultados visibles. Una sola tecnología. Más de 12 procedimientos estéticos.</p>
+    <p>
+      Formación con <strong>Auryn Pérez</strong>, formadora enfermera DUE con más de 10 años de experiencia en España.
+      El <strong>On Derma Laser</strong> de On Medical Group combina la más avanzada tecnología láser de alta potencia para eliminar pigmentos,
+      tatuajes y trabajar la piel con una precisión absoluta. Tatuajes multicolor, tratamientos para acné, manchas, Hollywood Peel,
+      cicatrices, estrías, blanqueamiento de zona íntima, onicomicosis… Su versatilidad permite realizar hasta 12 tratamientos estéticos
+      en un solo equipo, convirtiéndolo en una herramienta imprescindible para clínicas que buscan maximizar la rentabilidad y ofrecer
+      resultados espectaculares desde la primera sesión.
+    </p>
+  </section>
+
+  <div class="media-wrap">
+  <div class="media-grid">
+    <!-- 4 fotos -->
+    <a class="media-item" href="#" aria-label="Foto 1 OnFace">
+      <img src="https://imanagers.es/presovital/ONDERMA/onlaser.jpg" alt="Tratamiento facial 1">
+    </a>
+    <a class="media-item" href="#" aria-label="Foto 2 OnFace">
+      <img src="https://imanagers.es/presovital/ONDERMA/onlaser2.jpg" alt="Tratamiento facial 2">
+    </a>
+    <a class="media-item" href="#" aria-label="Foto 3 OnFace">
+      <img src="https://imanagers.es/presovital/ONDERMA/onlaser3.jpg" alt="Equipo OnFace">
+    </a>
+    <a class="media-item" href="#" aria-label="Foto 4 OnFace">
+      <img src="https://imanagers.es/presovital/ONDERMA/onlaser4.jpg" alt="Antes y después OnFace">
+    </a>
+
+    <!-- 1 vídeo -->
+    <div class="media-item video" aria-label="Vídeo OnFace">
+      <video src="https://imanagers.es/presovital/ONDERMA/onderma.mp4"
+             playsinline muted loop autoplay></video>
+    </div>
+  </div>
+</div>
+
+
+  <section class="section container">
+    <h2>On Diodo</h2>
+    <p class="sub">El poder de la depilación definitiva. Rápida, segura y rentable. Triple longitud de onda.</p>
+    <p>
+      El <strong>On Diodo Tribanda</strong> de On Medical Group combina tres longitudes de onda (755 nm, 808 nm y 1064 nm) en un solo disparo,
+      permitiendo eliminar el vello de forma eficaz, indolora y segura en todo tipo de fototipos y zonas corporales.
+      Una tecnología de última generación que garantiza resultados visibles desde las primeras sesiones, con la máxima comodidad para el
+      cliente y una alta rentabilidad para el centro.
+    </p>
+  </section>
+
+  <div class="media-wrap">
+  <div class="media-grid">
+    <!-- 4 fotos -->
+    <a class="media-item" href="#" aria-label="Foto 1 OnFace">
+      <img src="https://imanagers.es/presovital/ONDIODO/ondiodo.jpeg" alt="Tratamiento facial 1">
+    </a>
+    <a class="media-item" href="#" aria-label="Foto 2 OnFace">
+      <img src="https://imanagers.es/presovital/ONDIODO/ondiodo2.jpeg" alt="Tratamiento facial 2">
+    </a>
+    <a class="media-item" href="#" aria-label="Foto 3 OnFace">
+      <img src="https://imanagers.es/presovital/ONDIODO/ondiodo3.jpeg" alt="Equipo OnFace">
+    </a>
+
+    <!-- 1 vídeo -->
+    <div class="media-item video" aria-label="Vídeo OnFace">
+      <video src="https://imanagers.es/presovital/ONDIODO/ondiodo.mp4"
+             playsinline muted loop autoplay></video>
+    </div>
+  </div>
+</div>
+
+
+  <section class="section container">
+    <h2>On CO₂ Medical Laser</h2>
+    <p class="sub">Precisión quirúrgica. Regeneración total. Resultados clínicos reales.</p>
+    <p>
+      El <strong>On CO₂ Medical Laser</strong> de On Medical Group está diseñado para ofrecer la máxima precisión, control y versatilidad clínica
+      en procedimientos médicos y estéticos. Su tecnología fraccional de última generación permite trabajar de forma ablativa y no ablativa,
+      estimulando la regeneración profunda de la piel y permitiendo realizar múltiples tratamientos con total seguridad y eficacia.
+    </p>
+  </section>
+  <div class="media-wrap">
+  <div class="media-grid">
+    <!-- 4 fotos -->
+    <a class="media-item" href="#" aria-label="Foto 1 OnFace">
+      <img src="https://imanagers.es/presovital/ONCO2/FOTO1.jpg" style="object-fit: contain;" alt="Tratamiento facial 1">
+    </a>
+    <a class="media-item" href="#" aria-label="Foto 2 OnFace">
+      <img src="https://imanagers.es/presovital/ONCO2/FOTO2.jpg" style="object-fit: contain;" alt="Tratamiento facial 2">
+    </a>
+    <a class="media-item" href="#" aria-label="Foto 4 OnFace">
+      <img src="https://imanagers.es/presovital/ONCO2/LOGOONDIODO.png" alt="Antes y después OnFace">
+    </a>
+
+    <!-- 1 vídeo -->
+    <div class="media-item video" aria-label="Vídeo OnFace">
+      <video src="https://imanagers.es/presovital/ONCO2/VIDEOCO2.mp4"
+             playsinline muted loop autoplay></video>
+    </div>
+    <!-- DESCARGAS PDF -->
+<a class="media-item doc" href="https://imanagers.es/presovital/ONCO2/CECO2Fractionalsystem.pdf" download type="application/pdf" aria-label="Descargar Dossier OnFace (PDF)">
+  <!-- Ícono PDF en SVG -->
+  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path fill="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6zM13 9V3.5L18.5 9H13z"/>
+    <path fill="currentColor" d="M7.5 14.5h1.75c.83 0 1.5.67 1.5 1.5v.25c0 .83-.67 1.5-1.5 1.5H7.5v-3.25zm1.5 2c.41 0 .75-.34.75-.75v-.25c0-.41-.34-.75-.75-.75H8v1.75h1zM12.25 14.5H14c.97 0 1.75.78 1.75 1.75v.5c0 .97-.78 1.75-1.75 1.75h-1.75v-4zm1.5 3c.41 0 .75-.34.75-.75v-.5c0-.41-.34-.75-.75-.75h-.75v2h.75zM17 14.5h2v1h-1v.5h1v1h-1V18h-1v-3.5z"/>
+  </svg>
+  Dossier
+  <span class="badge">PDF</span>
+</a>
+
+<a class="media-item doc" href="https://imanagers.es/presovital/ONCO2/CECO2Fractionalsystem.pdf" download type="application/pdf" aria-label="Descargar Tarifas/Financiación OnFace (PDF)">
+  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path fill="currentColor" d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6zM13 9V3.5L18.5 9H13z"/>
+    <path fill="currentColor" d="M7.5 14.5h1.75c.83 0 1.5.67 1.5 1.5v.25c0 .83-.67 1.5-1.5 1.5H7.5v-3.25zm1.5 2c.41 0 .75-.34.75-.75v-.25c0-.41-.34-.75-.75-.75H8v1.75h1zM12.25 14.5H14c.97 0 1.75.78 1.75 1.75v.5c0 .97-.78 1.75-1.75 1.75h-1.75v-4zm1.5 3c.41 0 .75-.34.75-.75v-.5c0-.41-.34-.75-.75-.75h-.75v2h.75zM17 14.5h2v1h-1v.5h1v1h-1V18h-1v-3.5z"/>
+  </svg>
+  Dossier
+  <span class="badge">PDF</span>
+</a>
+
+  </div>
+</div>
+
+  <!-- TIMELINE -->
+  <section id="pasos" class="section container timeline">
+    <h2 class="reveal">Así trabajamos</h2>
+    <p class="sub reveal">Cuatro pasos, cero fricción.</p>
+
+    <!-- Línea SVG animada en verde -->
+    <svg viewBox="0 0 1200 140">
+      <defs>
+        <linearGradient id="stroke" x1="0" x2="1">
+          <stop offset="0" stop-color="#15bd68" stop-opacity=".0"/>
+          <stop offset=".5" stop-color="#15bd68" stop-opacity=".85"/>
+          <stop offset="1" stop-color="#15bd68" stop-opacity=".0"/>
+        </linearGradient>
+      </defs>
+      <path d="M0,100 C250,40 350,160 600,100 850,40 950,160 1200,100" fill="none" stroke="url(#stroke)" stroke-width="2">
+        <animate attributeName="stroke-dasharray" values="0,1400; 1400,0" dur="6s" repeatCount="indefinite"/>
+      </path>
+    </svg>
+
+    <div class="steps">
+      <div class="step reveal">
+        <h4>1</h4>
+        <p>Nos conocemos por llamada o videollamada.</p>
+      </div>
+      <div class="step reveal">
+        <h4>2</h4>
+        <p>Presupuesto personalizable según la aparatología que te interesa.</p>
+      </div>
+      <div class="step reveal">
+        <h4>3</h4>
+        <p>Opciones de financiación claras, contrato transparente.</p>
+      </div>
+      <div class="step reveal">
+        <h4>4</h4>
+        <p><strong>Envío del equipo y formación con certificado.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORM -->
+  <section id="contacto" class="section container">
+    <h2 class="reveal">Hablemos</h2>
+    <p class="sub reveal">Déjanos tus datos y te contactamos hoy.</p>
+
+    <form class="form" id="contact-form" novalidate>
+      <div class="field"><label for="nombre">Nombre</label><input id="nombre" name="nombre" required /></div>
+      <div class="field"><label for="telefono">Teléfono</label><input id="telefono" name="telefono" type="tel" required /></div>
+      <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" required /></div>
+      <div class="field"><label for="provincia">Provincia</label><input id="provincia" name="provincia" /></div>
+      <div class="field"><label for="centro">Nombre de tu Centro</label><input id="centro" name="centro" /></div>
+      <div class="field">
+        <label for="aparatologia">Aparatología</label>
+        <select id="aparatologia" name="aparatologia">
+          <option>On Body</option><option>On Face</option><option>On Exe</option><option>On Derma</option>
+        </select>
+      </div>
+      <div class="field" style="grid-column:1/-1">
+        <label for="obs">Observaciones</label>
+        <textarea id="obs" name="observaciones" placeholder="Cuéntanos qué necesitas..."></textarea>
+      </div>
+      <div class="form-actions">
+        <button class="btn" type="reset">Limpiar</button>
+        <button class="btn primary" type="submit">Solicitar presupuesto</button>
+      </div>
+    </form>
+  </section>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // Floating labels state
+  document.querySelectorAll('.field input, .field textarea, .field select').forEach(el=>{
+    const set = ()=> el.parentElement.classList.toggle('has-value', !!el.value);
+    el.addEventListener('input', set);
+    set();
+  });
+
+  // Intersection reveal + counters
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('show');
+
+        const num = entry.target.querySelector?.('.num');
+        if(num && !num.dataset.done){
+          animateCount(num, +num.dataset.count, num.dataset.suffix||"");
+          num.dataset.done = "1";
+        }
+        entry.target.querySelectorAll('.strong[data-count]').forEach(el=>{
+          if(!el.dataset.done){
+            animateCount(el, +el.dataset.count, "");
+            el.dataset.done = "1";
           }
-          // Small counters inside cards
-          entry.target.querySelectorAll('.strong[data-count]').forEach(el=>{
-            if(!el.dataset.done){ animateCount(el, +el.dataset.count, ""); el.dataset.done = "1"; }
-          });
-        }
-      });
-    }, { threshold:.25 });
-
-    document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
-
-    function animateCount(el, to, suffix){
-      const start = 0, dur = 1200;
-      const t0 = performance.now();
-      function frame(now){
-        const p = Math.min(1, (now - t0)/dur);
-        const eased = 1 - Math.pow(1-p, 3);
-        el.textContent = Math.round(start + (to - start)*eased) + (suffix || "");
-        if(p<1) requestAnimationFrame(frame);
-      }
-      requestAnimationFrame(frame);
-    }
-
-    // Simple tilt for the hero card
-    const tilt = document.getElementById('card-tilt');
-    tilt.addEventListener('pointermove', (e)=>{
-      const r = tilt.getBoundingClientRect();
-      const x = (e.clientX - r.left)/r.width - .5;
-      const y = (e.clientY - r.top)/r.height - .5;
-      tilt.style.transform = `rotateX(${(-y*6).toFixed(2)}deg) rotateY(${(x*6).toFixed(2)}deg) translateZ(0)`;
-    });
-    tilt.addEventListener('pointerleave', ()=> tilt.style.transform = '');
-
-    // Nav active on hash
-    function setActive(){
-      const hash = location.hash || '#contacto';
-      document.querySelectorAll('nav a').forEach(a=> a.classList.toggle('active', a.getAttribute('href')===hash));
-    }
-    window.addEventListener('hashchange', setActive); setActive();
-
-    // Toast helper
-    const toast = document.getElementById('toast');
-    function showToast(msg, ok=true){
-      toast.textContent = msg;
-      toast.className = 'toast ' + (ok?'ok':'err');
-      toast.style.display = 'block';
-      setTimeout(()=> toast.style.display='none', 3200);
-    }
-
-    // Form submit with Axios (mock endpoint)
-    const form = document.getElementById('contact-form');
-    form.addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      // Simple validation
-      if(!form.nombre.value || !form.telefono.value || !form.email.value){
-        showToast('Completa nombre, teléfono y email.', false);
-        return;
-      }
-      const data = Object.fromEntries(new FormData(form).entries());
-      try{
-        // Demo: post contra jsonplaceholder
-        await axios.post('https://jsonplaceholder.typicode.com/posts', data, {
-          headers: { 'Content-Type':'application/json' }
         });
-        showToast('¡Solicitud enviada! Te contactaremos hoy.');
-        form.reset();
-        form.querySelectorAll('.field').forEach(f=>f.classList.remove('has-value'));
-      }catch(err){
-        showToast('Error al enviar. Intenta nuevamente.', false);
       }
     });
+  }, { threshold:.25 });
+  document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
 
-    // Smooth scroll for internal links
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click', e=>{
-        const id = a.getAttribute('href').slice(1);
-        const target = document.getElementById(id);
-        if(target){
-          e.preventDefault();
-          window.scrollTo({ top: target.offsetTop - 70, behavior:'smooth' });
-          history.pushState(null,"","#"+id);
-          setActive();
-        }
+  function animateCount(el, to, suffix){
+    const start = 0, dur = 1200;
+    const t0 = performance.now();
+    function frame(now){
+      const p = Math.min(1, (now - t0)/dur);
+      const eased = 1 - Math.pow(1-p, 3);
+      el.textContent = Math.round(start + (to - start)*eased) + (suffix || "");
+      if(p<1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  // Simple tilt for the hero card (fix: template literal)
+  const tilt = document.getElementById('card-tilt');
+  tilt.addEventListener('pointermove', (e)=>{
+    const r = tilt.getBoundingClientRect();
+    const x = (e.clientX - r.left)/r.width - .5;
+    const y = (e.clientY - r.top)/r.height - .5;
+    tilt.style.transform = `rotateX(${(-y*6).toFixed(2)}deg) rotateY(${(x*6).toFixed(2)}deg) translateZ(0)`;
+  });
+  tilt.addEventListener('pointerleave', ()=> tilt.style.transform = '');
+
+  // Nav active on hash
+  function setActive(){
+    const hash = location.hash || '#contacto';
+    document.querySelectorAll('nav a').forEach(a=> a.classList.toggle('active', a.getAttribute('href')===hash));
+  }
+  window.addEventListener('hashchange', setActive);
+  setActive();
+
+  // Toast helper
+  const toast = document.getElementById('toast');
+  function showToast(msg, ok=true){
+    toast.textContent = msg;
+    toast.className = 'toast ' + (ok?'ok':'err');
+    toast.style.display = 'block';
+    setTimeout(()=> toast.style.display='none', 3200);
+  }
+
+  // Form submit with Axios (mock endpoint)
+  const form = document.getElementById('contact-form');
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+
+    if(!form.nombre.value || !form.telefono.value || !form.email.value){
+      showToast('Completa nombre, teléfono y email.', false);
+      return;
+    }
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    try{
+      await axios.post('https://jsonplaceholder.typicode.com/posts', data, {
+        headers: { 'Content-Type':'application/json' }
       });
-    });
+      showToast('¡Solicitud enviada! Te contactaremos hoy.');
+      form.reset();
+      form.querySelectorAll('.field').forEach(f=>f.classList.remove('has-value'));
+    }catch(err){
+      showToast('Error al enviar. Intenta nuevamente.', false);
+    }
+  });
 
-    
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', e=>{
+      const id = a.getAttribute('href').slice(1);
+      const target = document.getElementById(id);
+      if(target){
+        e.preventDefault();
+        window.scrollTo({ top: target.offsetTop - 70, behavior:'smooth' });
+        history.pushState(null,"","#"+id);
+        setActive();
+      }
+    });
+  });
+
+  // Drawer móvil
   (function(){
     const burger = document.getElementById('burger');
-    const panel  = document.getElementById('mobile-nav');
+    const panel = document.getElementById('mobile-nav');
     const backdrop = document.getElementById('mobile-backdrop');
 
     function openMenu(){
       burger.setAttribute('aria-expanded','true');
-      panel.hidden = false;
-      backdrop.hidden = false;
+      panel.hidden = false; backdrop.hidden = false;
       requestAnimationFrame(()=>{
-        panel.classList.add('open');
-        backdrop.classList.add('show');
-        document.body.classList.add('lock');
+        panel.classList.add('open'); backdrop.classList.add('show'); document.body.classList.add('lock');
       });
-      // foco al primer link
       panel.querySelector('a')?.focus();
     }
     function closeMenu(){
       burger.setAttribute('aria-expanded','false');
-      panel.classList.remove('open');
-      backdrop.classList.remove('show');
-      document.body.classList.remove('lock');
+      panel.classList.remove('open'); backdrop.classList.remove('show'); document.body.classList.remove('lock');
       setTimeout(()=>{ panel.hidden = true; backdrop.hidden = true; }, 300);
       burger.focus();
     }
@@ -687,14 +910,9 @@
       expanded ? closeMenu() : openMenu();
     });
     backdrop.addEventListener('click', closeMenu);
-    // cerrar con ESC
     window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeMenu(); });
-    // cerrar al navegar a una sección
-    document.querySelectorAll('#mobile-nav a').forEach(a => {
-      a.addEventListener('click', closeMenu);
-    });
+    document.querySelectorAll('#mobile-nav a').forEach(a => { a.addEventListener('click', closeMenu); });
   })();
 </script>
-
 </body>
 </html>
