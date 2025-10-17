@@ -456,18 +456,259 @@
       </article>
 
       <article class="card reveal">
-        <div class="card-media">On Exe</div>
-        <h3>On Exe <span class="tag">Performance</span></h3>
+        <div class="card-media">On Derma</div>
+        <h3>On Derma <span class="tag">Performance</span></h3>
         <p class="rating"><span class="strong" data-count="56">0</span> centros lo eligieron este año.</p>
       </article>
 
       <article class="card reveal">
-        <div class="card-media">On Laser</div>
+        <div class="card-media">On Luminage</div>
         <h3>On Laser <span class="tag">Láser</span></h3>
         <p class="rating"><span class="strong" data-count="82">0</span> centros lo eligieron este año.</p>
       </article>
     </div>
   </section>
+
+  <!-- ===== FORMULARIO DINÁMICO (solo esta sección) ===== -->
+<section id="form-dinamico" class="section container">
+  <h2 class="reveal">Encuentra tu mejor opción</h2>
+  <p class="sub reveal">Responde 2–3 pasos rápidos. Cada clic avanza automáticamente.</p>
+
+  <style>
+    /* —— Estilos locales del formulario dinámico —— */
+    .dyn-wrap{border:1px solid var(--border); border-radius:18px; background:#fff; box-shadow:var(--shadow); overflow:hidden}
+    .dyn-step{display:none; padding:18px}
+    .dyn-step.active{display:block}
+
+    .dyn-q{margin:0 0 12px; font-family:Orbitron, Inter, sans-serif; font-size:20px}
+    .dyn-help{margin:-6px 0 12px; color:var(--muted); font-size:13px}
+
+    .dyn-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:12px}
+    @media (max-width:1000px){.dyn-grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:560px){.dyn-grid{grid-template-columns:1fr}}
+
+    .dyn-card{
+      position:relative; border:1px solid var(--border); border-radius:14px; background:linear-gradient(180deg,#ffffff,#fbfcfd);
+      cursor:pointer; overflow:hidden; transition: transform var(--trans), box-shadow var(--trans), border-color var(--trans)
+    }
+    .dyn-card:hover{transform:translateY(-2px); box-shadow:var(--shadow-strong); border-color:rgba(21,189,104,.35)}
+    .dyn-card input{position:absolute; inset:0; opacity:0; pointer-events:none}
+    .dyn-media{aspect-ratio:16/10; background:#f7f9fb; display:grid; place-items:center}
+    .dyn-media img{width:100%; height:100%; object-fit:cover}
+    .dyn-body{padding:12px}
+    .dyn-title{display:flex; align-items:center; gap:8px; margin:0 0 6px; font-weight:900}
+    .dyn-desc{margin:0; color:var(--muted); font-size:13px; line-height:1.4}
+    .dyn-ico{
+      width:28px; height:28px; display:inline-grid; place-items:center; border-radius:8px; background:rgba(21,189,104,.12); color:var(--primary); font-weight:900
+    }
+    .dyn-note{margin:10px 0 0; color:var(--muted); font-size:12px}
+
+    .dyn-alert{
+      margin-top:10px; padding:12px; border:1px solid rgba(255,85,119,.35); background:linear-gradient(180deg,#fff5f7,#fff); color:#b0002a;
+      border-radius:12px; font-weight:800; display:none
+    }
+    .dyn-alert.show{display:block}
+
+    /* Etiqueta pequeña bajo las opciones de contacto */
+    .dyn-small{margin-top:10px; font-size:11px; color:var(--muted)}
+    /* iframe contenedor */
+    .dyn-cal{display:none; margin-top:14px; border:1px solid var(--border); border-radius:14px; overflow:hidden; box-shadow:var(--shadow)}
+    .dyn-cal.show{display:block}
+  </style>
+
+  <div class="dyn-wrap">
+
+    <!-- STEP 1 · Aparatología -->
+    <div class="dyn-step active" data-step="1">
+      <h3 class="dyn-q">¿Qué tipo de aparatología te interesa?</h3>
+      <p class="dyn-help">Elige una opción para continuar.</p>
+
+      <div class="dyn-grid">
+        <!-- On Face + On Body -->
+        <label class="dyn-card" data-next="2">
+          <input type="checkbox" name="aparatologia" value="On Face + On Body">
+          <div class="dyn-media">
+            <img src="https://i.postimg.cc/bwRWwVLS/Chat-GPT-Image-17-oct-2025-10-07-04.png" alt="On Face + On Body">
+          </div>
+          <div class="dyn-body">
+            <div class="dyn-title"><span class="dyn-ico">💆‍♀️</span> On Face + On Body</div>
+            <p class="dyn-desc">Neuroestimulación facial y corporal 2 en 1, tonificación y lifting natural.</p>
+          </div>
+        </label>
+
+        <!-- Luminage -->
+        <label class="dyn-card" data-next="2">
+          <input type="checkbox" name="aparatologia" value="Láser Luminage">
+          <div class="dyn-media">
+            <img src="https://i.postimg.cc/zBTfL1QM/Chat-GPT-Image-17-oct-2025-10-03-55.png" alt="Láser Luminage">
+          </div>
+          <div class="dyn-body">
+            <div class="dyn-title"><span class="dyn-ico">✨</span> Láser Luminage</div>
+            <p class="dyn-desc">Fraccional 1470 nm no ablativo para rejuvenecimiento sin baja social.</p>
+          </div>
+        </label>
+
+        <!-- On Derma -->
+        <label class="dyn-card" data-next="2">
+          <input type="checkbox" name="aparatologia" value="On Derma">
+          <div class="dyn-media">
+            <img src="https://imanagers.es/presovital/ONDERMA/onlaser.jpg" alt="On Derma">
+          </div>
+          <div class="dyn-body">
+            <div class="dyn-title"><span class="dyn-ico">🎯</span> On Derma</div>
+            <p class="dyn-desc">Láser versátil: manchas, cicatrices, tatuajes, Hollywood Peel y más.</p>
+          </div>
+        </label>
+
+        <!-- On Diodo -->
+        <label class="dyn-card" data-next="2">
+          <input type="checkbox" name="aparatologia" value="On Diodo">
+          <div class="dyn-media">
+            <img src="https://i.postimg.cc/zBTfL1QM/Chat-GPT-Image-17-oct-2025-10-03-55.png" alt="On Diodo">
+          </div>
+          <div class="dyn-body">
+            <div class="dyn-title"><span class="dyn-ico">⚡</span> On Diodo</div>
+            <p class="dyn-desc">Depilación definitiva tribanda (755/808/1064) para todos los fototipos.</p>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- STEP 2 · Tipo de centro -->
+    <div class="dyn-step" data-step="2">
+      <h3 class="dyn-q">¿Tienes una Clínica Estética o Centro Médico Estético?</h3>
+      <div class="dyn-grid">
+        <label class="dyn-card" data-next="3">
+          <input type="checkbox" name="centro" value="Tengo un centro">
+          <div class="dyn-body">
+            <div class="dyn-title"><span class="dyn-ico">🏥</span> Tengo un centro</div>
+            <p class="dyn-desc">Clínica o centro operativo.</p>
+          </div>
+        </label>
+
+        <label class="dyn-card" data-next="3">
+          <input type="checkbox" name="centro" value="Abriré próximamente">
+          <div class="dyn-body">
+            <div class="dyn-title"><span class="dyn-ico">🚧</span> Abriré un centro próximamente</div>
+            <p class="dyn-desc">Proyecto en fase de apertura.</p>
+          </div>
+        </label>
+
+        <label class="dyn-card" data-next="3">
+          <input type="checkbox" name="centro" value="Soy profesional">
+          <div class="dyn-body">
+            <div class="dyn-title"><span class="dyn-ico">💄</span> Soy un profesional</div>
+            <p class="dyn-desc">Trabajo por cuenta propia.</p>
+          </div>
+        </label>
+
+        <label class="dyn-card" data-stop="true">
+          <input type="checkbox" name="centro" value="No tengo">
+          <div class="dyn-body">
+            <div class="dyn-title"><span class="dyn-ico">⛔</span> No tengo</div>
+            <p class="dyn-desc">Sin centro actualmente.</p>
+          </div>
+        </label>
+      </div>
+
+      <div class="dyn-alert" id="dyn-alert">
+        Lo siento, si no tienes clínica no te podemos ayudar.
+      </div>
+    </div>
+
+    <!-- STEP 3 · Método de contacto -->
+    <div class="dyn-step" data-step="3">
+      <h3 class="dyn-q">¿Cómo deseas que nos pongamos en contacto?</h3>
+      <div class="dyn-grid">
+        <label class="dyn-card" data-next="cal">
+          <input type="checkbox" name="contacto" value="Llamada">
+          <div class="dyn-body">
+            <div class="dyn-title"><span class="dyn-ico">📞</span> Llamada</div>
+            <p class="dyn-desc">Concertamos una llamada.</p>
+          </div>
+        </label>
+
+        <label class="dyn-card" data-next="cal">
+          <input type="checkbox" name="contacto" value="Videollamada">
+          <div class="dyn-body">
+            <div class="dyn-title"><span class="dyn-ico">🎥</span> Videollamada</div>
+            <p class="dyn-desc">Meet/Zoom a tu hora.</p>
+          </div>
+        </label>
+
+        <label class="dyn-card" data-next="cal">
+          <input type="checkbox" name="contacto" value="Visita presencial">
+          <div class="dyn-body">
+            <div class="dyn-title"><span class="dyn-ico">📍</span> Visita presencial</div>
+            <p class="dyn-desc">Recuerda: estamos en Sevilla.</p>
+          </div>
+        </label>
+      </div>
+      <p class="dyn-small"><strong>Nota:</strong> No enviamos dossieres ni emails hasta conocer el centro y verificar que esta aparatología es lo que buscas. Mantenemos nuestra exclusiva reputación.</p>
+    </div>
+
+    <!-- STEP 4 · Calendario -->
+    <div class="dyn-cal" id="dyn-cal">
+      <!-- Google Calendar Appointment Scheduling begin -->
+      <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3ZYXNq5nPO80PkxS3rvlcqYgP9AZ944ZQhCxlPi-2HP4jVR-obktURiW9SyqxWqo20BcJbq4CT?gv=true" style="border:0" width="100%" height="600" frameborder="0"></iframe>
+      <!-- end Google Calendar Appointment Scheduling -->
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const wrap = document.getElementById('form-dinamico');
+      const steps = wrap.querySelectorAll('.dyn-step');
+      const alertBox = wrap.querySelector('#dyn-alert');
+      const calBox = wrap.querySelector('#dyn-cal');
+
+      // helper: mostrar un step por data-step
+      function showStep(id){
+        steps.forEach(s => s.classList.toggle('active', s.dataset.step === String(id)));
+        if(id !== '2' && alertBox) alertBox.classList.remove('show');
+        window.scrollTo({ top: wrap.offsetTop - 80, behavior:'smooth' });
+      }
+
+      // delegación de eventos para cada tarjeta
+      wrap.addEventListener('click', (e)=>{
+        const card = e.target.closest('.dyn-card');
+        if(!card) return;
+
+        const input = card.querySelector('input[type="checkbox"]');
+        if(!input) return;
+
+        // Uncheck siblings (comportamiento de radio con checkbox)
+        const groupName = input.getAttribute('name');
+        wrap.querySelectorAll(`input[name="${groupName}"]`).forEach(el => { if(el !== input) el.checked = false; });
+
+        // Marcar seleccionado
+        input.checked = true;
+
+        // Si es opción de stop (No tengo)
+        if(card.hasAttribute('data-stop')){
+          // Ocultar siguientes pasos y mostrar alerta
+          if(calBox) calBox.classList.remove('show');
+          steps.forEach(s => { if(s.dataset.step > '2') s.classList.remove('active'); });
+          alertBox?.classList.add('show');
+          return;
+        }
+
+        // Siguiente step o calendario
+        const next = card.getAttribute('data-next');
+        if(next === 'cal'){
+          // Mostrar calendario y ocultar otros steps
+          steps.forEach(s => s.classList.remove('active'));
+          calBox.classList.add('show');
+          calBox.scrollIntoView({behavior:'smooth', block:'start'});
+        }else{
+          showStep(next);
+        }
+      });
+    })();
+  </script>
+</section>
+<!-- ===== /FORMULARIO DINÁMICO ===== -->
+
 
   <!-- PRODUCTOS / CONTENIDO -->
   <section class="section container">
@@ -761,7 +1002,7 @@
       <div class="field">
         <label for="aparatologia">Aparatología</label>
         <select id="aparatologia" name="aparatologia">
-          <option>On Body</option><option>On Face</option><option>On Exe</option><option>On Derma</option>
+          <option>On Body</option><option>On Face</option><option>On Derma</option><option>On Derma</option>
         </select>
       </div>
       <div class="field" style="grid-column:1/-1">
