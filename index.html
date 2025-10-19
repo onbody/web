@@ -587,7 +587,7 @@
         <label class="dyn-card" data-next="2">
           <input type="checkbox" name="aparatologia" value="Láser Luminage">
           <div class="dyn-media">
-            <img src="https://i.postimg.cc/zBTfL1QM/Chat-GPT-Image-17-oct-2025-10-03-55.png" alt="Láser Luminage">
+            <img src="https://imanagers.es/presovital/LUMINAGE/luminageaparato.png" alt="Láser Luminage">
           </div>
           <div class="dyn-body">
             <div class="dyn-title"><span class="dyn-ico">✨</span> Láser Luminage</div>
@@ -1075,6 +1075,106 @@
 
 
 <div class="toast" id="toast"></div>
+<script>
+/* ========= Envío a Zapier (no-cors + URI encoded) ========= */
+(function(){
+  const ZAP_URL = "https://hooks.zapier.com/hooks/catch/15157064/urhacif/";
+
+  // Convierte objeto -> x-www-form-urlencoded con encodeURIComponent
+  function toFormUrlEncoded(obj){
+    return Object.entries(obj)
+      .map(([k,v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v ?? "")}`)
+      .join("&");
+  }
+
+  // Envío sin CORS; usa sendBeacon si existe, si no fetch no-cors
+  function postNoCors(url, dataObj){
+    const body = toFormUrlEncoded(dataObj);
+    if (navigator.sendBeacon) {
+      const blob = new Blob([body], { type: "application/x-www-form-urlencoded;charset=UTF-8" });
+      navigator.sendBeacon(url, blob);
+      return;
+    }
+    try{
+      fetch(url, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+        body
+      });
+    }catch(_e){ /* silencioso */ }
+  }
+
+  // Estado del formulario dinámico
+  const dynState = {
+    aparatologia: "",
+    centro: "",
+    contacto: "",
+    page: location.href,
+    tz: Intl.DateTimeFormat().resolvedOptions().timeZone
+  };
+
+  // Hook al FORM DINÁMICO: enviar al pasar a calendario o si elige "No tengo"
+  const dynRoot = document.getElementById("form-dinamico");
+  if (dynRoot) {
+    dynRoot.addEventListener("click", (e)=>{
+      const card = e.target.closest(".dyn-card");
+      if(!card) return;
+      const input = card.querySelector('input[type="checkbox"]');
+      if(!input) return;
+
+      // Guarda el valor elegido por grupo (aparatologia / centro / contacto)
+      dynState[input.name] = input.value;
+
+      // Si selecciona "No tengo" => cortar flujo y avisar
+      if (card.hasAttribute("data-stop")) {
+        postNoCors(ZAP_URL, {
+          ...dynState,
+          denied: "no-centro",
+          ts: new Date().toISOString()
+        });
+        return; // no continuamos
+      }
+
+      // Si pasa al calendario, disparamos envío del flujo
+      const next = card.getAttribute("data-next");
+      if (next === "cal") {
+        postNoCors(ZAP_URL, {
+          ...dynState,
+          ts: new Date().toISOString()
+        });
+      }
+    });
+  }
+
+  // Hook al FORM DE CONTACTO: espejamos todo a Zapier además de tu envío actual
+  const contactForm = document.getElementById("contact-form");
+  if (contactForm) {
+    contactForm.addEventListener("submit", function(){
+      const fd = new FormData(contactForm);
+      const payload = {
+        nombre:        fd.get("nombre") || "",
+        telefono:      fd.get("telefono") || "",
+        email:         fd.get("email") || "",
+        provincia:     fd.get("provincia") || "",
+        centro_nombre: fd.get("centro") || "",
+        aparatologia_select: fd.get("aparatologia") || "",
+        observaciones: fd.get("observaciones") || "",
+        // Datos del flujo dinámico
+        flow_aparatologia: dynState.aparatologia || "",
+        flow_centro:       dynState.centro || "",
+        flow_contacto:     dynState.contacto || "",
+        page: dynState.page,
+        tz: dynState.tz,
+        userAgent: navigator.userAgent,
+        ts: new Date().toISOString()
+      };
+      postNoCors(ZAP_URL, payload);
+      // Nota: no bloqueamos tu submit original; esto es "fire-and-forget".
+    }, true); // capture=true para que se ejecute incluso si otro listener hace preventDefault
+  }
+})();
+</script>
 
 <script>
   // Floating labels state
