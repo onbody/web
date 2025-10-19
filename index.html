@@ -1245,28 +1245,35 @@
     setTimeout(()=> toast.style.display='none', 3200);
   }
 
-  // Form submit with Axios (mock endpoint)
-  const form = document.getElementById('contact-form');
-  form.addEventListener('submit', async (e)=>{
-    e.preventDefault();
+  // Envío del formulario con limpieza + mensaje personalizado
+const form = document.getElementById('contact-form');
+form.addEventListener('submit', async (e)=>{
+  e.preventDefault();
 
-    if(!form.nombre.value || !form.telefono.value || !form.email.value){
-      showToast('Completa nombre, teléfono y email.', false);
-      return;
-    }
-    const data = Object.fromEntries(new FormData(form).entries());
+  if(!form.nombre.value || !form.telefono.value || !form.email.value){
+    showToast('Completa nombre, teléfono y email.', false);
+    return;
+  }
 
-    try{
-      await axios.post('https://jsonplaceholder.typicode.com/posts', data, {
-        headers: { 'Content-Type':'application/json' }
-      });
-      showToast('¡Solicitud enviada! Te contactaremos hoy.');
-      form.reset();
-      form.querySelectorAll('.field').forEach(f=>f.classList.remove('has-value'));
-    }catch(err){
-      showToast('Error al enviar. Intenta nuevamente.', false);
-    }
-  });
+  const data = Object.fromEntries(new FormData(form).entries());
+
+  try{
+    await axios.post('https://jsonplaceholder.typicode.com/posts', data, {
+      headers: { 'Content-Type':'application/json' }
+    });
+
+    // ✅ Mensaje personalizado
+    showToast('Solicitud enviada, te llamaremos en menos de 24h.', true);
+
+    // ✅ Limpieza de formulario
+    form.reset();
+    form.querySelectorAll('.field').forEach(f=>f.classList.remove('has-value'));
+
+  }catch(err){
+    showToast('Error al enviar. Intenta nuevamente.', false);
+  }
+});
+
 
   // Smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(a=>{
